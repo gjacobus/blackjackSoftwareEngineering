@@ -1,0 +1,7 @@
+package blackjackPkg;
+
+import javax.swing.JPanel;
+
+public class StartGamePanel extends JPanel {
+
+}
