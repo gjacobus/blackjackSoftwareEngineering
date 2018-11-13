@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/blackjack/blackjackPkg/ServerGUI.java"/>
+<listEntry value="/blackjack/serverUI/ServerGUI.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="blackjackPkg.ServerGUI"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="serverUI.ServerGUI"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="blackjack"/>
 </launchConfiguration>
