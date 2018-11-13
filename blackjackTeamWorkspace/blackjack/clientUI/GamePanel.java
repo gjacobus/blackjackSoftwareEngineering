@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import gameplay.GameControl;
 
+//Author Mdodd
 public class GamePanel extends JPanel
 {	
 	// Private data fields for the important GUI components.
