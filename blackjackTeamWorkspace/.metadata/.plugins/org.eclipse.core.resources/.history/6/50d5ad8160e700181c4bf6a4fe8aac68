@@ -1,0 +1,13 @@
+package blackjackPkg;
+
+import javax.swing.*;
+
+import blackjackPkg.BetControl;
+
+public class BetPanel extends JPanel {
+
+	public BetPanel(BetControl bc)
+	{
+		
+	}
+}
