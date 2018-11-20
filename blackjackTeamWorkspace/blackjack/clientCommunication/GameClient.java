@@ -2,16 +2,18 @@ package clientCommunication;
 
 import javax.swing.JPanel;
 
+import gameplay.GameControl;
 import ocsf.client.AbstractClient;
 
 public class GameClient extends AbstractClient
 {
 	private LoginControl lc;
 	private CreateAccountControl cac;
+	private GameControl gc;
 
 	public GameClient()
 	{
-		super("localhost", 8300);
+		super("localhost", 12345);
 	}
 
 	public void setLoginControl(LoginControl lc)
@@ -22,6 +24,11 @@ public class GameClient extends AbstractClient
 	public void setCreateAccountControl(CreateAccountControl cac)
 	{
 		this.cac = cac;
+	}
+	
+	public void setGameControl(GameControl gc)
+	{
+		this.gc = gc;
 	}
 
 	@Override
@@ -47,7 +54,6 @@ public class GameClient extends AbstractClient
 		case "Create account success":
 			cac.createAccountSuccess();
 			break;
-
 		}
 
 	}

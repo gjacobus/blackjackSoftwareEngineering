@@ -32,6 +32,7 @@ public class ServerGUI extends JFrame
 	private JLabel status; //Initialized to “Not Connected”
 
 	public ServerGUI(String title) {
+		System.out.println("YO");
 		  this.setTitle(title);
 		  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		  

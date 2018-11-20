@@ -4,5 +4,7 @@
 	<classpathentry kind="src" path=""/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/riovi/Documents/School/SeniorYear/SoftwareEngineering/BlackjackHolder/blackjackSoftwareEngineering/blackjackTeamWorkspace/blackjack/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/riovi/Documents/School/SeniorYear/SoftwareEngineering/BlackjackHolder/blackjackSoftwareEngineering/blackjackTeamWorkspace/blackjack/ocsf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mdodd/git/blackjackSoftwareEngineering/blackjackTeamWorkspace/blackjack/ocsf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/mdodd/git/blackjackSoftwareEngineering/blackjackTeamWorkspace/blackjack/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

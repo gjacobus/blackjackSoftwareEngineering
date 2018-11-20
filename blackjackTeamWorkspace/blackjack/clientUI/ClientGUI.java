@@ -20,7 +20,7 @@ public class ClientGUI extends JFrame
   // Constructor that creates the client GUI.
   public ClientGUI()
   {
-    
+    System.out.println("YOLO");
     // Set the title and default close operation.
     this.setTitle("Client");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,10 +36,11 @@ public class ClientGUI extends JFrame
     LoginControl lc = new LoginControl(container, client); //Probably will want to pass in ChatClient here
     CreateAccountControl cac = new CreateAccountControl(container, client);
     StartGameControl sgc = new StartGameControl();
-    GameControl gc = new GameControl();
+    GameControl gc = new GameControl(container, client);
     BetControl bc = new BetControl();
     client.setCreateAccountControl(cac);
     client.setLoginControl(lc);
+    client.setGameControl(gc);
     
     // Create the four views. (need the controller to register with the Panels
     JPanel view1 = new InitialPanel(ic);
@@ -47,7 +48,7 @@ public class ClientGUI extends JFrame
     JPanel view3 = new CreateAccountPanel(cac);
     JPanel view4 = new StartGamePanel(sgc);
     JPanel view5 = new GamePanel(gc);
-    JPanel veiw6 = new BetPanel(bc);
+    JPanel view6 = new BetPanel(bc);
     
     
     // Add the views to the card layout container.
@@ -55,10 +56,12 @@ public class ClientGUI extends JFrame
     container.add(view2, "2");
     container.add(view3, "3");
     container.add(view4, "4");
+    container.add(view5, "5");
+    container.add(view6, "6");
    
     
     // Show the initial view in the card layout.
-    cardLayout.show(container, "1");
+    cardLayout.show(container, "3");
     
     // Add the card layout container to the JFrame.
     this.add(container, BorderLayout.CENTER);
@@ -71,6 +74,7 @@ public class ClientGUI extends JFrame
   // Main function that creates the client GUI when the program is started.
   public static void main(String[] args)
   {
-    new ClientGUI();
+	System.out.println("Here");
+    //new ClientGUI();
   }
 }
