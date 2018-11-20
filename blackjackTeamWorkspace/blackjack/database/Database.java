@@ -23,7 +23,7 @@ public class Database
 
 		try
 		{
-			fis = new FileInputStream("blackjackPkg/db.properties");
+			fis = new FileInputStream("database/db.properties");
 			prop.load(fis);
 			String url = prop.getProperty("url");
 			String user = prop.getProperty("user");
