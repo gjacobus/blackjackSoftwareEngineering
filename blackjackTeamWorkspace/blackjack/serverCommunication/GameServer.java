@@ -23,6 +23,7 @@ public class GameServer extends AbstractServer
 	private ArrayList<Integer> deck = new ArrayList<Integer>();
 	private int currentNum = 0;
 	private ArrayList<String> names = new ArrayList<String>();
+	private int currentChair = 0;
 
 	public GameServer()
 	{
@@ -135,6 +136,8 @@ public class GameServer extends AbstractServer
 		}
 		else if(arg0.toString().contains("Stay"))
 		{
+			currentChair += 1;
+			this.sendToAllClients("chairIncrease");
 			try {
 				if(arg0.equals("Stay" + (names.size() + 1)))
 				{

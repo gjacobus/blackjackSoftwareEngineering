@@ -71,7 +71,6 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("Stay"))
 		{
-			System.out.println("Stay Here");
 			gc.canPlay(false);
 		}
 		else if(message.contains("DealerMove"))
@@ -81,6 +80,10 @@ public class GameClient extends AbstractClient
 		else if(message.equals("CheckResults"))
 		{
 			gc.checkResults();
+		}
+		else if(message.equals("chairIncrease"))
+		{
+			gc.chairIncrease();
 		}
 
 	}

@@ -37,6 +37,11 @@ public class GameControl implements ActionListener
 	    users.add("default");
 	  }
 	  
+	  public void chairIncrease()
+	  {
+		  currentChair += 1;
+	  }
+	  
 	  // Handle button clicks.
 	  public void actionPerformed(ActionEvent ae)
 	  {
@@ -56,7 +61,6 @@ public class GameControl implements ActionListener
 		    }
 		    else if (command == "Stay")
 		    {
-		    	currentChair += 1;
 		    	try {
 					game.sendToServer("Stay" + currentChair);
 				} catch (IOException e) {
@@ -143,7 +147,6 @@ public class GameControl implements ActionListener
 					  gamePanel.setError("You Busted");
 					  this.canPlay = false;
 					  this.busted = false;
-					  currentChair += 1;
 				    	try {
 							game.sendToServer("Stay" + currentChair);
 						} catch (IOException e) {
