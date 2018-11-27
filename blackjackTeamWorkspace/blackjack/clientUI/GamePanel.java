@@ -1,22 +1,15 @@
 package clientUI;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
 
 import gameplay.GameControl;
 
-//Author Mdodd
+//Author mdodd
 public class GamePanel extends JPanel
 {	
 	// Private data fields for the important GUI components.
 	  private JTextField usernameField;
-	  private JPasswordField passwordField;
 	  private JLabel errorLabel;
 	  private Color background = new Color(10, 100, 35);
 	  private JPanel dealerCards = new JPanel();
@@ -24,6 +17,12 @@ public class GamePanel extends JPanel
 	  private JPanel user2Cards = new JPanel();
 	  private JPanel user3Cards = new JPanel();
 	  private JPanel user4Cards = new JPanel();
+	  private int maxCardNum = 0;
+	  private int cardBuffer = 400;
+	  private JLabel dealerScoreLabel;
+	  private JLabel userScore;
+	  private JLabel betAmt;
+	  private JPanel box;
 	  
 	  // Getter for the text in the username field.
 	  public String getUsername()
@@ -31,35 +30,57 @@ public class GamePanel extends JPanel
 	    return usernameField.getText();
 	  }
 	  
+	  public String getBetAmount()
+	  {
+		  return betAmt.getText();
+	  }
+	  
+	  public void setBetAmount(int amount)
+	  {
+		  betAmt.setText("Bet: " + amount);
+	  }
+	  
 	  // Setter for the error text.
 	  public void setError(String error)
 	  {
-	    errorLabel.setText(error);
+		  if(error.equals(""))
+		  {
+			  errorLabel.setVisible(false);
+		  }
+		  else
+		  {
+			  errorLabel.setVisible(true);
+			  errorLabel.setText(error);
+		  }
+
 	  }
 	  
-	  // Constructor for the login panel.
+	  // Constructor for the Game panel initial.
 	  public GamePanel(GameControl gc)
 	  {
 		dealerCards.setLayout(new BoxLayout(dealerCards, BoxLayout.X_AXIS));
 		dealerCards.setBackground(background);
 		user1Cards.setLayout(new BoxLayout(user1Cards, BoxLayout.Y_AXIS));
+		user1Cards.setBackground(background);
 		user2Cards.setLayout(new BoxLayout(user2Cards, BoxLayout.Y_AXIS));
+		user2Cards.setBackground(background);
 		user3Cards.setLayout(new BoxLayout(user3Cards, BoxLayout.Y_AXIS));
+		user3Cards.setBackground(background);
 		user4Cards.setLayout(new BoxLayout(user4Cards, BoxLayout.Y_AXIS));
-		Image cards[] = new Image[52];
+		user4Cards.setBackground(background);
 	        
-	    JPanel dealerPanel = new JPanel(new GridLayout(1, 1, 5, 5));
+	    JPanel dealerPanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    dealerPanel.setBackground(background);
-	    JLabel dealerScoreLabel = new JLabel("Dealer Score:");
+	    dealerScoreLabel = new JLabel("Dealer Score: 0");
 	    dealerScoreLabel.setForeground(Color.YELLOW);
-	    //dealerCards.add(new JLabel("", new ImageIcon("/Card_Images/10C.png"), JLabel.CENTER));
-	    dealerPanel.add(dealerScoreLabel);
+	    dealerCards.add(dealerScoreLabel);
+	    dealerCards.add(Box.createRigidArea(new Dimension(60, 0)));
 	    dealerPanel.add(dealerCards);
 	    
 	    
 	    JPanel errorPanel = new JPanel(new GridLayout(1, 1, 5, 5));
 	    errorPanel.setBackground(background);
-	    JLabel errorLabel = new JLabel("Error:", JLabel.CENTER);
+	    errorLabel = new JLabel("Not visible", JLabel.CENTER);
 	    errorLabel.setForeground(Color.red);
 	    errorLabel.setVisible(false);
 	    errorPanel.add(errorLabel);
@@ -84,18 +105,6 @@ public class GamePanel extends JPanel
 	    
 	    JPanel userCardPanel = new JPanel(new GridLayout(1, 4, 70, 0));
 	    userCardPanel.setBackground(background);
-	    JLabel user1Card = new JLabel("", new ImageIcon(this.getClass().getResource("/Card_Images/10C.png")), JLabel.CENTER);
-	    user1Cards.add(user1Card);
-	    //user1Cards.setLayout(new BoxLayout(user1Cards, BoxLayout.Y_AXIS));
-	    JLabel user2Card = new JLabel("", new ImageIcon(this.getClass().getResource("/Card_Images/10C.png")), JLabel.CENTER);
-	    user2Cards.add(user2Card);
-	    //user2Cards.setLayout(new BoxLayout(user2Cards, BoxLayout.Y_AXIS));
-	    JLabel user3Card = new JLabel("", new ImageIcon(this.getClass().getResource("/Card_Images/10C.png")), JLabel.CENTER);
-	    user3Cards.add(user3Card);
-	    //user3Cards.setLayout(new BoxLayout(user3Cards, BoxLayout.Y_AXIS));
-	    JLabel user4Card = new JLabel("", new ImageIcon(this.getClass().getResource("/Card_Images/10C.png")), JLabel.CENTER);
-	    user4Cards.add(user4Card);
-	    //user4Cards.setLayout(new BoxLayout(user4Cards, BoxLayout.Y_AXIS));
 	    userCardPanel.add(user1Cards);
 	    userCardPanel.add(user2Cards);
 	    userCardPanel.add(user3Cards);
@@ -103,10 +112,12 @@ public class GamePanel extends JPanel
 	    
 	    JPanel infoAndButtonsPanel = new JPanel(new GridLayout(1, 4, 70, 10));
 	    infoAndButtonsPanel.setBackground(background);
-	    JLabel betAmt = new JLabel("Bet: ");
+	    betAmt = new JLabel("Bet: 20");
 	    betAmt.setForeground(Color.YELLOW);
 	    JButton hitButton = new JButton("Hit");
+	    hitButton.addActionListener(gc);
 	    JButton stayButton = new JButton("Stay");
+	    stayButton.addActionListener(gc);
 	    JLabel balAmt = new JLabel("Balance: ");
 	    balAmt.setForeground(Color.YELLOW);
 	    infoAndButtonsPanel.add(betAmt);
@@ -116,32 +127,126 @@ public class GamePanel extends JPanel
 	    
 	    JPanel userScorePanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    userScorePanel.setBackground(background);
-	    JLabel userScore = new JLabel("Current Score: ");
+	    userScore = new JLabel("Current Score: 0");
 	    userScore.setForeground(Color.YELLOW);
 	    userScorePanel.add(userScore);
 	    
-	    JPanel box = new JPanel();
+	    box = new JPanel();
 	    box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
 	    
 	    box.add(dealerPanel);
-	    box.add(Box.createRigidArea(new Dimension(0, 50)));
+	    box.add(Box.createRigidArea(new Dimension(0, 60)));
 	    
 	    box.add(errorPanel);
-	    box.add(Box.createRigidArea(new Dimension(0, 50)));
+	    box.add(Box.createRigidArea(new Dimension(0, 10)));
 	    
 	    box.add(namePanel);
 	    box.add(Box.createRigidArea(new Dimension(0, 5)));
 	    
 	    box.add(userCardPanel);
-	    box.add(Box.createRigidArea(new Dimension(0, 200)));
+	    Component cardBufferBox = Box.createRigidArea(new Dimension(0, 50));
+	    box.add(cardBufferBox);
 	    
 	    box.add(infoAndButtonsPanel);
-	    box.add(Box.createRigidArea(new Dimension(0, 30)));
+	    box.add(Box.createRigidArea(new Dimension(0, 10)));
 	    
 	    box.add(userScorePanel);
 	    
 	    box.setBackground(background);
 	    this.add(box);
 	    this.setBackground(background);
+	  }
+	  
+	  public void updateDealerScore(int score)
+	  {
+		  dealerScoreLabel.setText("DealerScore: " + score);
+	  }
+	  
+	  public String getDealerScore()
+	  {
+		  return dealerScoreLabel.getText();
+	  }
+	  
+	  public void addDealerCards(String cardPath)
+	  {
+		  JLabel newJLabel = new JLabel("", new ImageIcon(this.getClass().getResource(cardPath)), JLabel.CENTER);
+		  dealerCards.add(newJLabel);
+		  this.repaint();
+	  }
+	  
+	  public void resetDealerCards()
+	  {
+		  
+	  }
+	  
+	  public void addUserCards(int chairNum, String cardPath)
+	  {
+		  JLabel newJLabel = new JLabel("", new ImageIcon(this.getClass().getResource(cardPath)), JLabel.CENTER);
+		  switch (chairNum)
+		  {
+			  case 0:
+			  {
+				  user1Cards.add(newJLabel);
+				  if(user1Cards.getComponentCount() > maxCardNum)
+				  {
+					  maxCardNum = user1Cards.getComponentCount();
+				  }
+				  break;
+			  }
+			  case 1:
+			  {
+				  user2Cards.add(newJLabel);
+				  if(user2Cards.getComponentCount() > maxCardNum)
+				  {
+					  maxCardNum = user2Cards.getComponentCount();
+				  }
+				  break;
+			  }
+			  case 2:
+			  {
+				  user3Cards.add(newJLabel);
+				  if(user3Cards.getComponentCount() > maxCardNum)
+				  {
+					  maxCardNum = user3Cards.getComponentCount();
+				  }
+				  break;
+			  }
+			  case 3:
+			  {
+				  user4Cards.add(newJLabel);
+				  if(user4Cards.getComponentCount() > maxCardNum)
+				  {
+					  maxCardNum = user4Cards.getComponentCount();
+				  }
+				  break;
+			  }
+		  }
+		  cardBuffer = 400 - (100 * maxCardNum);
+		  System.out.println(box.getComponent(7).getSize());
+		  box.getComponent(7).invalidate();
+		  box.getComponent(7).setSize(0, cardBuffer);
+		  box.getComponent(7).validate();
+		  System.out.println(box.getComponent(7).getSize());
+		  this.repaint();
+	  }
+	  
+	  public void updateUserScore(int score)
+	  {
+		  userScore.setText("Current Score: " + score);
+	  }
+	  
+	  public String getUserScore()
+	  {
+		  return userScore.getText();
+	  }
+	  
+	  public void resetUserCards()
+	  {
+		  
+	  }
+	  
+	  public void resetGame()
+	  {
+		  
 	  }
 }

@@ -20,7 +20,6 @@ public class ClientGUI extends JFrame
   // Constructor that creates the client GUI.
   public ClientGUI()
   {
-    System.out.println("YOLO");
     // Set the title and default close operation.
     this.setTitle("Client");
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,8 +46,8 @@ public class ClientGUI extends JFrame
     JPanel view2 = new LoginPanel(lc);
     JPanel view3 = new CreateAccountPanel(cac);
     JPanel view4 = new StartGamePanel(sgc);
-    JPanel view5 = new GamePanel(gc);
-    JPanel view6 = new BetPanel(bc);
+    JPanel view5 = new BetPanel(bc);
+    JPanel view6 = new GamePanel(gc);
     
     
     // Add the views to the card layout container.
@@ -61,13 +60,13 @@ public class ClientGUI extends JFrame
    
     
     // Show the initial view in the card layout.
-    cardLayout.show(container, "5");
+    cardLayout.show(container, "6");
     
     // Add the card layout container to the JFrame.
     this.add(container, BorderLayout.CENTER);
 
     // Show the JFrame.
-    this.setSize(550, 350);
+    this.setSize(1000, 750);
     this.setVisible(true);
   }
 

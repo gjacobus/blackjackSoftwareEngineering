@@ -7,15 +7,22 @@ import javax.swing.*;
 import clientCommunication.CreateAccountData;
 import clientCommunication.LoginData;
 import database.Database;
+import gameplay.BetData;
+import gameplay.GameData;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GameServer extends AbstractServer
 {
 	private JTextArea log;
 	private JLabel status;
 	private Database database;
+	private ArrayList<Integer> deck = new ArrayList<Integer>();
+	private int currentNum = 0;
+	private ArrayList<String> names = new ArrayList<String>();
 
 	public GameServer()
 	{
@@ -57,6 +64,7 @@ public class GameServer extends AbstractServer
 		// TODO Auto-generated method stub
 		// log.append("Message from Client" + arg0.toString() + arg1.toString() + "\n");
 
+		System.out.println(arg0.toString());
 		if (arg0 instanceof LoginData)
 		{
 			LoginData loginData = (LoginData) arg0;
@@ -95,16 +103,89 @@ public class GameServer extends AbstractServer
 				} else
 				{
 					arg1.sendToClient("Username already exists");
-
 				}
 			} catch (IOException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if (arg0 instanceof BetData)
+		{
+			shuffleDeck();
+			BetData betData = (BetData) arg0;
+			//verification of betData, then game starts
+			String message = "GameStart";
+			try {
+				arg1.sendToClient(message);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if (arg0 instanceof GameData)
+		{
+			GameData gameData = (GameData) arg0;
+			//System.out.println(gameData.getUsername() + gameData.getCardTotal() + gameData.getBetAmount() + gameData.getChairNum());
+			String message = "GameUpdate";
+			this.sendToAllClients(message);
 		}
-
+		else if(arg0.toString().equals("nextCard"))
+		{
+			int temp = nextCard();
+			this.sendToAllClients("nextCard=" + temp);
+		}
+		else if(arg0.toString().contains("Stay"))
+		{
+			try {
+				if(arg0.equals("Stay" + (names.size() + 1)))
+				{
+					int temp = nextCard();
+					this.sendToAllClients("DealerMove=" + temp);
+				}
+				arg1.sendToClient("Stay");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(arg0.toString().equals("DealerMove"))
+		{
+			int temp = nextCard();
+			this.sendToAllClients("DealerMove=" + temp);
+		}
+		else if(arg0.toString().equals("DealerDone"))
+		{
+			System.out.println("CHeckum");
+			this.sendToAllClients("CheckResults");
+		}
+		else if(arg0.equals("DealerBust"))
+		{
+			
+		}
 	}
+	
+	public void shuffleDeck()
+	{
+		currentNum = 0;
+		Random seed = new Random();
+		int deckSize = 52;
+		for(int i = 0; i < deckSize; i++)
+		{
+			int temp = seed.nextInt(deckSize);
+			while(deck.contains(temp))
+			{
+				temp = seed.nextInt(deckSize);
+			}
+			deck.add(temp);
+		}
+	}
+	
+	public int nextCard()
+	{
+		int temp = deck.get(currentNum);
+		currentNum += 1;
+		return temp;
+	}
+	
 
 	protected void listeningException(Throwable exception)
 	{

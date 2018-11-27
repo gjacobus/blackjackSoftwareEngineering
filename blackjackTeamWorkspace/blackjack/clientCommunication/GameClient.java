@@ -55,6 +55,33 @@ public class GameClient extends AbstractClient
 			cac.createAccountSuccess();
 			break;
 		}
+		
+		if(message.contains("GameStart"))
+		{
+			gc.startGame(message);
+		}
+		else if(message.contains("GameUpdate"))
+		{
+			gc.updateGame(message);
+		}
+		else if(message.contains("nextCard"))
+		{
+			System.out.println(message);
+			gc.updateGame(message);
+		}
+		else if(message.contains("Stay"))
+		{
+			System.out.println("Stay Here");
+			gc.canPlay(false);
+		}
+		else if(message.contains("DealerMove"))
+		{
+			gc.updateGame(message);
+		}
+		else if(message.equals("CheckResults"))
+		{
+			gc.checkResults();
+		}
 
 	}
 

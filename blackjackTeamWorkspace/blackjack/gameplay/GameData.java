@@ -1,49 +1,58 @@
 package gameplay;
 
+import java.util.ArrayList;
+
 public class GameData 
 {
-	private String username;
-	private Integer cardTotal;
-	private Integer betAmount;
+	ArrayList<String> bigData = new ArrayList<String>();
+	private String usernames;
+	private String cardTotals;
+	private String betAmounts;
 	  
 	  // Getters for the username and password.
-	public String getUsername()
+	public String getUsernames()
 	{
-	  return username;
+	  return usernames;
 	}
 	
-	public Integer getCardTotal()
+	public String getCardTotals()
 	{
-	  return cardTotal;
+	  return cardTotals;
 	}
 	
-	public Integer getBetAmount()
+	public String getBetAmounts()
 	{
-	  return betAmount;
+	  return betAmounts;
 	}
+
 	  
-	// Setters for the username and password.
-	public void setUsername(String username)
+	public void setUsernames(String usernames)
 	{
-	  this.username = username;
+	  this.usernames = usernames;
 	}
 	
-	public void setCardTotal(Integer cardTotal)
+	public void setCardTotals(String cardTotals)
 	{
-	  this.cardTotal = cardTotal;
+	  this.cardTotals = cardTotals;
 	}
 	
-	public void setBetAmount(Integer betAmount)
+	public void setBetAmounts(String betAmounts)
 	{
-	  this.betAmount = betAmount;
-	}
+	  this.betAmounts = betAmounts;
+	}	
+	
 	  
 	// Constructor that initializes the username and password.
-	public GameData(String username, Integer cardTotal, Integer betAmount)
+	public GameData(String usernames, String cardTotals, String betAmounts)
 	{
-	  setUsername(username);
-	  setCardTotal(cardTotal);
-	  setBetAmount(betAmount);
+	  setUsernames(usernames);
+	  setCardTotals(cardTotals);
+	  setBetAmounts(betAmounts);
+	  
+	  bigData.add(this.usernames);
+	  bigData.add(this.cardTotals);
+	  bigData.add(this.betAmounts);
+	  
 	}
 
 }
