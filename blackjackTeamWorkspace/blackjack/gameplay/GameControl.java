@@ -146,7 +146,7 @@ public class GameControl implements ActionListener
 				  {
 					  gamePanel.setError("You Busted");
 					  this.canPlay = false;
-					  this.busted = false;
+					  this.busted = true;
 				    	try {
 							game.sendToServer("Stay" + currentChair);
 						} catch (IOException e) {
@@ -293,12 +293,7 @@ public class GameControl implements ActionListener
 		  System.out.println(dealerScore + " " + userScore);
 		  if(this.busted)
 		  {
-			  try {
-				game.sendToServer("busted");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			  displayError("You busted by going over 21, you lose $" + betAmount);
 		  }
 		  else
 		  {

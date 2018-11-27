@@ -139,7 +139,7 @@ public class GameServer extends AbstractServer
 			currentChair += 1;
 			this.sendToAllClients("chairIncrease");
 			try {
-				if(arg0.equals("Stay" + (names.size() + 1)))
+				if(arg0.equals("Stay" + (names.size())))
 				{
 					int temp = nextCard();
 					this.sendToAllClients("DealerMove=" + temp);
