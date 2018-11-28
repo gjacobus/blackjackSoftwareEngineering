@@ -73,6 +73,10 @@ public class GameClient extends AbstractClient
 		{
 			gc.canPlay(false);
 		}
+		else if(message.contains("canPlay"))
+		{
+			gc.canPlay(true);
+		}
 		else if(message.contains("DealerMove"))
 		{
 			gc.updateGame(message);

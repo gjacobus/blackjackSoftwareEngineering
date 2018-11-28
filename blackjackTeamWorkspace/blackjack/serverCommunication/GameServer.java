@@ -59,6 +59,46 @@ public class GameServer extends AbstractServer
 	{
 		return status;
 	}
+	
+	private Boolean addUser(String username)
+	{
+		if(names.size() <= 3)
+		{
+			if(!names.contains(username))
+			{
+				names.add(username);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	private Boolean removeUser(String username)
+	{
+		if(names.size() >= 0)
+		{
+			if(names.contains(username))
+			{
+				names.remove(username);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	@Override
 	protected void handleMessageFromClient(Object arg0, ConnectionToClient arg1)
@@ -115,6 +155,16 @@ public class GameServer extends AbstractServer
 		{
 			BetData betData = (BetData) arg0;
 			//verification of betData, then game starts
+			//TODO verify bet data add user to list, if name is added and first user canPLay = true, else canPlay = false
+			if(names.size() == 1)
+			{
+				try {
+					arg1.sendToClient("canPlay");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			String message = "GameStart";
 			try {
 				arg1.sendToClient(message);
@@ -130,6 +180,7 @@ public class GameServer extends AbstractServer
 		}
 		else if(arg0.toString().contains("Stay"))
 		{
+			//TODO currentScore needs to be calculated based on username and the cards underneath
 			currentChair += 1;
 			this.sendToAllClients("chairIncrease");
 			try {

@@ -19,9 +19,8 @@ public class GameControl implements ActionListener
 	// Private data fields for the container and chat client.
 	  private JPanel container;
 	  private GameClient game;
-	  private ArrayList<String> users  = new ArrayList<String>(4);
 	  private int currentChair;
-	  private boolean canPlay = true;
+	  private boolean canPlay = false;
 	  private boolean busted;
 	  
 	  
@@ -31,10 +30,6 @@ public class GameControl implements ActionListener
 	    this.container = container;
 	    this.currentChair = 0;
 	    this.game = game; 
-	    users.add("default");
-	    users.add("default");
-	    users.add("default");
-	    users.add("default");
 	  }
 	  
 	  public void chairIncrease()
@@ -232,45 +227,6 @@ public class GameControl implements ActionListener
 		  }
 		  System.out.println("UPDATE GAME");
 
-	  }
-	  
-	  public void addUser(String username)
-	  {
-
-		Iterator userIt = users.iterator();
-			  
-		while(userIt.hasNext())
-		{
-			String temp = userIt.next().toString();
-			if(temp.contains("default"))
-			{
-				temp = username;
-				break;
-			}
-			if(!userIt.hasNext())
-			{
-				System.out.println("Game is full, wait for a member to leave");
-			}
-		}
-	  }
-	  
-	  public void removeUser(String username)
-	  {
-		 Iterator userIt = users.iterator();
-		 int i = 0;
-		 
-		 while(userIt.hasNext())
-		 {
-			 String temp = userIt.next().toString();
-			 System.out.println(temp.toString());
-			 if(temp.toString().equals(username))
-			 {
-				 temp = "User has Left";
-				 temp = "username" + i;
-				 break;
-			 }
-			 i++;
-		 }
 	  }
 	  
 	  public void checkResults()

@@ -224,12 +224,12 @@ public class GamePanel extends JPanel
 				  break;
 			  }
 		  }
-		  cardBuffer = 400 - (100 * maxCardNum);
-		  System.out.println(box.getComponent(7).getSize());
-		  box.getComponent(7).invalidate();
-		  box.getComponent(7).setSize(0, cardBuffer);
-		  box.getComponent(7).validate();
-		  System.out.println(box.getComponent(7).getSize());
+//		  cardBuffer = 400 - (100 * maxCardNum);
+//		  System.out.println(box.getComponent(7).getSize());
+//		  box.getComponent(7).invalidate();
+//		  box.getComponent(7).setSize(0, cardBuffer);
+//		  box.getComponent(7).validate();
+//		  System.out.println(box.getComponent(7).getSize());
 		  this.repaint();
 	  }
 	  
@@ -256,7 +256,6 @@ public class GamePanel extends JPanel
 		  userScore.setText("Current Score: 0");
 		  dealerScore.setText("DealerScore: 0");
 		  setError("");
-		  
 	  }
 	  
 	  public void resetGame()
