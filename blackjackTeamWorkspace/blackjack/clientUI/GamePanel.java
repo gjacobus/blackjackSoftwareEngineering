@@ -19,7 +19,7 @@ public class GamePanel extends JPanel
 	  private JPanel user4Cards = new JPanel();
 	  private int maxCardNum = 0;
 	  private int cardBuffer = 400;
-	  private JLabel dealerScoreLabel;
+	  private JLabel dealerScore;
 	  private JLabel userScore;
 	  private JLabel betAmt;
 	  private JPanel box;
@@ -71,9 +71,9 @@ public class GamePanel extends JPanel
 	        
 	    JPanel dealerPanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    dealerPanel.setBackground(background);
-	    dealerScoreLabel = new JLabel("Dealer Score: 0");
-	    dealerScoreLabel.setForeground(Color.YELLOW);
-	    dealerCards.add(dealerScoreLabel);
+	    dealerScore = new JLabel("Dealer Score: 0");
+	    dealerScore.setForeground(Color.YELLOW);
+	    dealerCards.add(dealerScore);
 	    dealerCards.add(Box.createRigidArea(new Dimension(60, 0)));
 	    dealerPanel.add(dealerCards);
 	    
@@ -159,12 +159,12 @@ public class GamePanel extends JPanel
 	  
 	  public void updateDealerScore(int score)
 	  {
-		  dealerScoreLabel.setText("DealerScore: " + score);
+		  dealerScore.setText("DealerScore: " + score);
 	  }
 	  
 	  public String getDealerScore()
 	  {
-		  return dealerScoreLabel.getText();
+		  return dealerScore.getText();
 	  }
 	  
 	  public void addDealerCards(String cardPath)
@@ -174,9 +174,12 @@ public class GamePanel extends JPanel
 		  this.repaint();
 	  }
 	  
-	  public void resetDealerCards()
+	  private void resetDealerCards()
 	  {
-		  
+		  dealerCards.removeAll();
+		  dealerCards.add(dealerScore);
+		  dealerCards.add(Box.createRigidArea(new Dimension(60, 0)));
+		  this.repaint();
 	  }
 	  
 	  public void addUserCards(int chairNum, String cardPath)
@@ -240,13 +243,26 @@ public class GamePanel extends JPanel
 		  return userScore.getText();
 	  }
 	  
-	  public void resetUserCards()
+	  private void resetUserCards()
 	  {
+		  user1Cards.removeAll();
+		  user2Cards.removeAll();
+		  user3Cards.removeAll();
+		  user4Cards.removeAll();
+	  }
+	  
+	  private void resetText()
+	  {
+		  userScore.setText("Current Score: 0");
+		  dealerScore.setText("DealerScore: 0");
+		  setError("");
 		  
 	  }
 	  
 	  public void resetGame()
 	  {
-		  
+		  resetText();
+		  resetUserCards();
+		  resetDealerCards();
 	  }
 }

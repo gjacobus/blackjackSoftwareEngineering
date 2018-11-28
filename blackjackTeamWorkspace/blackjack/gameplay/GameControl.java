@@ -82,13 +82,10 @@ public class GameControl implements ActionListener
 		  cardLayout.show(container, "6");
 		  
 		  String[] temp = message.split(",");
-		  if(temp.length >= 2)
-		  {
-		    GamePanel gamePanel = (GamePanel) container.getComponent(5);
-		    gamePanel.updateDealerScore(0);
-		    gamePanel.updateUserScore(0);
-		  }
-
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.resetGame();
+		  gamePanel.updateDealerScore(0);
+		  gamePanel.updateUserScore(0);
 	  }
 	  
 	  public void updateGame(String message)
@@ -316,6 +313,11 @@ public class GameControl implements ActionListener
 		  }
 	  }
 
+	  public void resetGame()
+	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.resetGame();
+	  }
 	  // Method that displays a message in the error - could be invoked by ChatClient or by this class (see above)
 	  public void displayError(String error)
 	  {

@@ -80,6 +80,14 @@ public class GameClient extends AbstractClient
 		else if(message.equals("CheckResults"))
 		{
 			gc.checkResults();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("Sleep");
+			gc.resetGame();
 		}
 		else if(message.equals("chairIncrease"))
 		{

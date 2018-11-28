@@ -122,12 +122,6 @@ public class GameServer extends AbstractServer
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if (arg0 instanceof GameData)
-		{
-			GameData gameData = (GameData) arg0;
-			//System.out.println(gameData.getUsername() + gameData.getCardTotal() + gameData.getBetAmount() + gameData.getChairNum());
-			String message = "GameUpdate";
-			this.sendToAllClients(message);
 		}
 		else if(arg0.toString().equals("nextCard"))
 		{
@@ -157,12 +151,9 @@ public class GameServer extends AbstractServer
 		}
 		else if(arg0.toString().equals("DealerDone"))
 		{
+			shuffleDeck();
 			System.out.println("CHeckum");
 			this.sendToAllClients("CheckResults");
-		}
-		else if(arg0.equals("DealerBust"))
-		{
-			
 		}
 	}
 	
