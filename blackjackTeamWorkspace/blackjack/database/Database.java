@@ -100,7 +100,7 @@ public class Database
 
 	public String getDataByUsername(String username)
 	{
-		String query = "select * from user";
+		String query = "select * from blackjackdata";
 		ArrayList<String> data = this.query(query);
 		for (String str : data)
 		{
@@ -110,12 +110,12 @@ public class Database
 				return str;
 			}
 		}
-		return "user not found";
+		return "username not found";
 	}
 
 	public String getUserPassword(String username)
 	{
-		String query = "select username, aes_decrypt(password, 'hello') from user";
+		String query = "select username, aes_decrypt(password, 'blackjack') from blackjackdata";
 		ArrayList<String> data = this.query(query);
 		for (String str : data)
 		{
@@ -125,14 +125,29 @@ public class Database
 				return split[1];
 			}
 		}
-		return "user not found";
+		return "username not found";
+	}
+	
+	public String getUserBalance(String username)
+	{
+		String query = "select username, balance from blackjackdata";
+		ArrayList<String> data = this.query(query);
+		for (String str : data)
+		{
+			String[] split = str.split(",");
+			if (split[0].equals(username))
+			{
+				return split[1];
+			}
+		}
+		return "username not found";
 	}
 
 	public void addData(String data)
 	{
 		String[] dataArray = data.split(",");
 
-		String stmt = "insert into user values('" + dataArray[0] + "', " + encryptPassword(dataArray[1]) + ")";
+		String stmt = "insert into blackjackdata values('" + dataArray[0] + "', " + encryptPassword(dataArray[1]) + "','50')";
 
 		try
 		{
@@ -143,8 +158,9 @@ public class Database
 		}
 	}
 	
-	private String encryptPassword(String password) {
-		return("aes_encrypt('" + password + "', 'hello')");
+	private String encryptPassword(String password) 
+	{
+		return("aes_encrypt('" + password + "', 'blackjack')");
 	}
 
 }

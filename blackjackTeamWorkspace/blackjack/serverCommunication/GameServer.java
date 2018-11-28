@@ -28,6 +28,7 @@ public class GameServer extends AbstractServer
 	public GameServer()
 	{
 		super(12345);
+		setDatabase(new Database());
 	}
 
 	public GameServer(int port)
@@ -35,7 +36,8 @@ public class GameServer extends AbstractServer
 		super(port);
 	}
 	
-	public void setDatabase(Database db) {
+	public void setDatabase(Database db) 
+	{
 		database = db;
 	}
 
