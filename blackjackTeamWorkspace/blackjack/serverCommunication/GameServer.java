@@ -28,13 +28,11 @@ public class GameServer extends AbstractServer
 	public GameServer()
 	{
 		super(12345);
-		shuffleDeck();
 	}
 
 	public GameServer(int port)
 	{
 		super(port);
-		shuffleDeck();
 	}
 	
 	public void setDatabase(Database db) 
