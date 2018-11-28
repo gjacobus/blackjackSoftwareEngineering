@@ -28,12 +28,13 @@ public class GameServer extends AbstractServer
 	public GameServer()
 	{
 		super(12345);
-		setDatabase(new Database());
+		shuffleDeck();
 	}
 
 	public GameServer(int port)
 	{
 		super(port);
+		shuffleDeck();
 	}
 	
 	public void setDatabase(Database db) 
@@ -114,7 +115,6 @@ public class GameServer extends AbstractServer
 			}
 		} else if (arg0 instanceof BetData)
 		{
-			shuffleDeck();
 			BetData betData = (BetData) arg0;
 			//verification of betData, then game starts
 			String message = "GameStart";
