@@ -40,6 +40,7 @@ public class StartGamePanel extends JPanel
 	    
 	    JPanel startGamePanel = new JPanel(new GridLayout(1, 1, 0, 30));
 	    JButton startGameButton  = new JButton("StartGame");
+	    startGameButton.addActionListener(sgc);
 	    startGamePanel.add(startGameButton);
 	   
 	    

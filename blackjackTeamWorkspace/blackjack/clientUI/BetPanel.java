@@ -48,8 +48,7 @@ public class BetPanel extends JPanel {
 		textField = new JTextField();
 		textField.setBounds(183, 110, 86, 20);
 		textField.setEditable(false);
-		textField.setText("$200");
-		textField.setText("$" + bc.getBalance());
+		textField.setText("$0");
 		add(textField);
 		textField.setColumns(10);
 
@@ -110,7 +109,7 @@ public class BetPanel extends JPanel {
 	}
 
 	public double getBet() {
-		double toReturn = Double.parseDouble(textField.getText());
+		double toReturn = Double.parseDouble(textField.getText().substring(1));
 		return toReturn;
 	}
 

@@ -99,6 +99,7 @@ public class GameClient extends AbstractClient
 			sgc.updateBalance();
 			System.out.println("userName");
 			sgc.updateUsername();
+			bc.setBalance(this.getBalance());
 			lc.loginSuccess();
 		}
 		if(message.contains("fullGame"))

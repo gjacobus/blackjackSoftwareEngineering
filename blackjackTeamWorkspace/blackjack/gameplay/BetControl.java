@@ -28,7 +28,9 @@ public class BetControl implements ActionListener{
 	}
 	
 	public void setBalance(double balance) {
-		
+		BetPanel betPanel = (BetPanel)container.getComponent(4); 
+		JTextField balanceTextField = betPanel.getBalanceTextField();
+		balanceTextField.setText("$" + client.getBalance());
 	}
 
 	@Override
