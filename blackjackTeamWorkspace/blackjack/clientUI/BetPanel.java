@@ -31,6 +31,7 @@ import gameplay.BetControl;
 public class BetPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
+	private JLabel errorLabel;
 
 	public BetPanel(BetControl bc) {
 		setLayout(null);
@@ -42,75 +43,84 @@ public class BetPanel extends JPanel {
 		this.add(inner);
 
 		JLabel lblPlaceYourBets = new JLabel("Place Your Bet");
-		lblPlaceYourBets.setBounds(183, 14, 69, 14);
+		lblPlaceYourBets.setBounds(183, 14, 200, 14);
 		add(lblPlaceYourBets);
+		
+		errorLabel  = new JLabel("Error");
+		errorLabel.setBounds(183, 50, 500, 50);
+		errorLabel.setForeground(Color.red);
+		errorLabel.setVisible(false);
+		add(errorLabel);
 
 		textField = new JTextField();
-		textField.setBounds(183, 110, 86, 20);
+		textField.setBounds(183, 110, 200, 20);
 		textField.setEditable(false);
 		textField.setText("$0");
 		add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
-		textField_1.setBounds(183, 151, 86, 20);
+		textField_1.setBounds(183, 151, 200, 20);
 		textField_1.setText("$0");
 		textField_1.setEditable(false);
 		add(textField_1);
 		textField_1.setColumns(10);
 
 		JLabel lblAccountBalance = new JLabel("Account Balance");
-		lblAccountBalance.setBounds(183, 85, 79, 14);
+		lblAccountBalance.setBounds(183, 85, 200, 14);
 		add(lblAccountBalance);
 
 		JLabel lblBetAmount = new JLabel("Bet Amount");
-		lblBetAmount.setBounds(183, 133, 56, 14);
+		lblBetAmount.setBounds(183, 133, 200, 14);
 		add(lblBetAmount);
-
-		JButton btnNewButton_1 = new JButton("$20");
-		btnNewButton_1.addActionListener(bc);
-		btnNewButton_1.setBounds(270, 192, 51, 23);
-		add(btnNewButton_1);
-
-		JButton btnNewButton_2 = new JButton("$100");
-		btnNewButton_2.addActionListener(bc);
-		btnNewButton_2.setBounds(335, 192, 57, 23);
-		add(btnNewButton_2);
 
 		JButton button = new JButton("$1");
 		button.addActionListener(bc);
-		button.setBounds(85, 192, 43, 23);
+		button.setBounds(85, 192, 75, 23);
 		add(button);
 
 		JButton button_1 = new JButton("$5");
 		button_1.addActionListener(bc);
-		button_1.setBounds(145, 192, 45, 23);
+		button_1.setBounds(160, 192, 75, 23);
 		add(button_1);
 
 		JButton btnNewButton = new JButton("$10");
 		btnNewButton.addActionListener(bc);
-		btnNewButton.setBounds(205, 192, 51, 23);
+		btnNewButton.setBounds(235, 192, 75, 23);
 		add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("$20");
+		btnNewButton_1.addActionListener(bc);
+		btnNewButton_1.setBounds(305, 192, 75, 23);
+		add(btnNewButton_1);
 
-		JButton btnCheck = new JButton("Check");
-		btnCheck.addActionListener(bc);
-		btnCheck.setBounds(85, 227, 61, 23);
-		add(btnCheck);
+		JButton btnNewButton_2 = new JButton("$100");
+		btnNewButton_2.addActionListener(bc);
+		btnNewButton_2.setBounds(380, 192, 75, 23);
+		add(btnNewButton_2);
 
 		JButton btnFold = new JButton("Place Bet");
 		btnFold.addActionListener(bc);
-		btnFold.setBounds(199, 227, 53, 23);
+		btnFold.setBounds(200, 227, 150, 23);
 		add(btnFold);
-
-		JButton btnWatchHand = new JButton("Watch Hand");
-		btnWatchHand.addActionListener(bc);
-		btnWatchHand.setBounds(286, 227, 91, 23);
-		add(btnWatchHand);
 	}
 
 	public double getBet() {
 		double toReturn = Double.parseDouble(textField.getText().substring(1));
 		return toReturn;
+	}
+	
+	public void displayError(String message)
+	{
+		if(message.equals(""))
+		{
+			errorLabel.setVisible(false);
+		}
+		else
+		{
+			errorLabel.setVisible(true);
+			errorLabel.setText(message);
+		}
 	}
 
 	public JTextField getBetTextField() {

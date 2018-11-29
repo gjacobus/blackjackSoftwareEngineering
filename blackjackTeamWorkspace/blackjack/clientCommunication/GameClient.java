@@ -103,6 +103,10 @@ public class GameClient extends AbstractClient
 			bc.updateBalance();
 			lc.loginSuccess();
 		}
+		else if(message.toString().equals("gameInProgress"))
+		{
+			bc.displayError("Game in progress, try again in 30 sec");
+		}
 		if(message.contains("fullGame"))
 		{
 		}

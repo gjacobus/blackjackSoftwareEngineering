@@ -61,6 +61,7 @@ public class BetControl implements ActionListener{
 		case "Place Bet":
 			BetData data = new BetData(client.getUsername(), betPanel.getBet());
 			System.out.println(data.toString());
+			betPanel.displayError("");
 			try {
 				client.sendToServer(data);
 			} catch (IOException e1) {
@@ -80,6 +81,12 @@ public class BetControl implements ActionListener{
 		if (newAmount <= balance) {
 			betTextField.setText("$" + Double.toString(newAmount));
 		}
+	}
+	
+	public void displayError(String message)
+	{
+		BetPanel betPanel = (BetPanel)container.getComponent(4); 
+		betPanel.displayError("Error:" + message);
 	}
 	
 	public double getBalance() {

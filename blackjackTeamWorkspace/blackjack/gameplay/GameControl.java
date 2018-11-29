@@ -23,6 +23,10 @@ public class GameControl implements ActionListener
 	  private boolean canPlay = false;
 	  private boolean busted;
 	  private boolean dealerInitial = true;
+	  private boolean ace1 = false;
+	  private boolean ace2 = false;
+	  private boolean ace3 = false;
+	  private boolean ace4 = false;
 	  
 	  
 	  // Constructor for the Game controller.

@@ -26,6 +26,7 @@ public class GameServer extends AbstractServer
 	private int currentChair = 0;
 	private int timerCheck = 1;
 	private int cardNum = 0;
+	private Boolean gameStarted = false;
 
 	public GameServer()
 	{
@@ -170,7 +171,16 @@ public class GameServer extends AbstractServer
 			//verification of betData, then game starts
 			//TODO verify bet data add user to list, if name is added and first user canPlay = true, else canPlay = false
 			String username = betData.getUsername();
-			if(addUser(username))
+			if(gameStarted)
+			{
+				try {
+					arg1.sendToClient("gameInProgress");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(addUser(username))
 			{
 				currentChair++;
 				timerCheck++;
@@ -218,6 +228,7 @@ public class GameServer extends AbstractServer
 			{
 				currentChair = 0;
 				//TODO maybe who knows
+				gameStarted = true;
 				this.notifyAll();
 				this.sendToAllClients("GameStart");
 			}
@@ -288,6 +299,7 @@ public class GameServer extends AbstractServer
 			this.sendToAllClients("dealerDone");
 			shuffleDeck();
 			currentChair = 0;
+			gameStarted = false;
 			cardNum = 0;
 			timerCheck = 1;
 			System.out.println(names.toString());
