@@ -402,3 +402,127 @@ user global configuration and to define the default location to store repositori
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-11-28 19:27:50.913
+!MESSAGE An internal error occurred during: "Resetting to HEAD".
+!STACK 0
+org.eclipse.jgit.api.errors.JGitInternalException: Exception caught during execution of reset command. Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4649564382723980276.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:235)
+	at org.eclipse.egit.core.op.ResetOperation.reset(ResetOperation.java:102)
+	at org.eclipse.egit.core.op.ResetOperation.access$0(ResetOperation.java:86)
+	at org.eclipse.egit.core.op.ResetOperation$1.run(ResetOperation.java:75)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2267)
+	at org.eclipse.egit.core.op.ResetOperation.execute(ResetOperation.java:79)
+	at org.eclipse.egit.core.internal.job.JobUtil$2.runInWorkspace(JobUtil.java:105)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4649564382723980276.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1429)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.doCheckout(DirCacheCheckout.java:532)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkout(DirCacheCheckout.java:455)
+	at org.eclipse.jgit.api.ResetCommand.checkoutIndex(ResetCommand.java:411)
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:208)
+	... 9 more
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4649564382723980276.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.util.FileUtils.rename(FileUtils.java:287)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1426)
+	... 13 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-11-28 19:27:57.616
+!MESSAGE An internal error occurred during: "Resetting to HEAD".
+!STACK 0
+org.eclipse.jgit.api.errors.JGitInternalException: Exception caught during execution of reset command. Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log300108421673996745.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:235)
+	at org.eclipse.egit.core.op.ResetOperation.reset(ResetOperation.java:102)
+	at org.eclipse.egit.core.op.ResetOperation.access$0(ResetOperation.java:86)
+	at org.eclipse.egit.core.op.ResetOperation$1.run(ResetOperation.java:75)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2267)
+	at org.eclipse.egit.core.op.ResetOperation.execute(ResetOperation.java:79)
+	at org.eclipse.egit.core.internal.job.JobUtil$2.runInWorkspace(JobUtil.java:105)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log300108421673996745.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1429)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.doCheckout(DirCacheCheckout.java:532)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkout(DirCacheCheckout.java:455)
+	at org.eclipse.jgit.api.ResetCommand.checkoutIndex(ResetCommand.java:411)
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:208)
+	... 9 more
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log300108421673996745.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.util.FileUtils.rename(FileUtils.java:287)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1426)
+	... 13 more
+
+!ENTRY org.eclipse.core.jobs 4 2 2018-11-28 19:28:06.749
+!MESSAGE An internal error occurred during: "Resetting to HEAD".
+!STACK 0
+org.eclipse.jgit.api.errors.JGitInternalException: Exception caught during execution of reset command. Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log5491472287881775968.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:235)
+	at org.eclipse.egit.core.op.ResetOperation.reset(ResetOperation.java:102)
+	at org.eclipse.egit.core.op.ResetOperation.access$0(ResetOperation.java:86)
+	at org.eclipse.egit.core.op.ResetOperation$1.run(ResetOperation.java:75)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2267)
+	at org.eclipse.egit.core.op.ResetOperation.execute(ResetOperation.java:79)
+	at org.eclipse.egit.core.internal.job.JobUtil$2.runInWorkspace(JobUtil.java:105)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log5491472287881775968.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1429)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.doCheckout(DirCacheCheckout.java:532)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkout(DirCacheCheckout.java:455)
+	at org.eclipse.jgit.api.ResetCommand.checkoutIndex(ResetCommand.java:411)
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:208)
+	... 9 more
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log5491472287881775968.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.util.FileUtils.rename(FileUtils.java:287)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1426)
+	... 13 more
+
+!ENTRY org.eclipse.egit.ui 4 0 2018-11-28 19:28:14.279
+!MESSAGE Stash create error
+!STACK 1
+org.eclipse.team.core.TeamException: Exception caught during execution of reset command. Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4475148702297088454.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.egit.core.op.StashCreateOperation$1.run(StashCreateOperation.java:97)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2267)
+	at org.eclipse.egit.core.op.StashCreateOperation.execute(StashCreateOperation.java:109)
+	at org.eclipse.egit.ui.internal.stash.StashCreateUI$1.runInWorkspace(StashCreateUI.java:79)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4475148702297088454.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1429)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.doCheckout(DirCacheCheckout.java:532)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkout(DirCacheCheckout.java:455)
+	at org.eclipse.jgit.api.ResetCommand.checkoutIndex(ResetCommand.java:411)
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:208)
+	at org.eclipse.jgit.api.StashCreateCommand.call(StashCreateCommand.java:396)
+	at org.eclipse.egit.core.op.StashCreateOperation$1.run(StashCreateOperation.java:95)
+	... 6 more
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4475148702297088454.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.util.FileUtils.rename(FileUtils.java:287)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1426)
+	... 12 more
+!SUBENTRY 1 org.eclipse.team.core 4 0 2018-11-28 19:28:14.280
+!MESSAGE Exception caught during execution of reset command. Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4475148702297088454.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+!STACK 0
+java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4475148702297088454.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1429)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.doCheckout(DirCacheCheckout.java:532)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkout(DirCacheCheckout.java:455)
+	at org.eclipse.jgit.api.ResetCommand.checkoutIndex(ResetCommand.java:411)
+	at org.eclipse.jgit.api.ResetCommand.call(ResetCommand.java:208)
+	at org.eclipse.jgit.api.StashCreateCommand.call(StashCreateCommand.java:396)
+	at org.eclipse.egit.core.op.StashCreateOperation$1.run(StashCreateOperation.java:95)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2240)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2267)
+	at org.eclipse.egit.core.op.StashCreateOperation.execute(StashCreateOperation.java:109)
+	at org.eclipse.egit.ui.internal.stash.StashCreateUI$1.runInWorkspace(StashCreateUI.java:79)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:39)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:56)
+Caused by: java.io.IOException: Could not rename file C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\._0.log4475148702297088454.tmp to C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.m2e.logback.configuration\0.log
+	at org.eclipse.jgit.util.FileUtils.rename(FileUtils.java:287)
+	at org.eclipse.jgit.dircache.DirCacheCheckout.checkoutEntry(DirCacheCheckout.java:1426)
+	... 12 more
