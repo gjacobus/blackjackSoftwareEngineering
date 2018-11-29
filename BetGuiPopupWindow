@@ -111,7 +111,7 @@ public class BetGuiPopupWindow extends JPanel {
 		add(btnWatchHand);
 		
 		JButton btnBet = new JButton("Bet");
-		btnBet.setBounds(40, 226, 85, 23);
+		btnBet.setBounds(40, 227, 85, 23);
 		add(btnBet);
 	}
 	public static void main(String[] args)
