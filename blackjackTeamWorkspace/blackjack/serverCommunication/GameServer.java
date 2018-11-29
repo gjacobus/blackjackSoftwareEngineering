@@ -159,7 +159,7 @@ public class GameServer extends AbstractServer
 			BetData betData = (BetData) arg0;
 			//verification of betData, then game starts
 			//TODO verify bet data add user to list, if name is added and first user canPlay = true, else canPlay = false
-			String username = betData.getUserName();
+			String username = betData.getUsername();
 			if(addUser(username))
 			{
 				currentChair++;
@@ -175,14 +175,30 @@ public class GameServer extends AbstractServer
 				}
 				else
 				{
-					arg1.sendToClient("chairNum," + currentChair);
+					try {
+						arg1.sendToClient("chairNum," + currentChair);
+				
 					arg1.sendToClient("Stay");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-				arg1.sendToClient("wait");
+				try {
+					arg1.sendToClient("wait");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else
 			{
-				arg1.sendToClient("fullGame");
+				try {
+					arg1.sendToClient("fullGame");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		else if(arg0.toString().equals("checkStart"))

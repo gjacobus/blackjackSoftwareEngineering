@@ -89,7 +89,6 @@ public class GameClient extends AbstractClient
 		}
 		if(message.contains("fullGame"))
 		{
-			bc.startGame(message);
 		}
 		else if(message.contains("chairNum"))
 		{
