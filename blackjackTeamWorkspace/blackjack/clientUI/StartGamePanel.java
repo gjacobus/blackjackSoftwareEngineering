@@ -34,10 +34,7 @@ public class StartGamePanel extends JPanel
 	    balanceLabel = new JLabel("Balance:", JLabel.CENTER);
 	    userDataPanel.add(nameLabel);
 	    userDataPanel.add(balanceLabel);
-	    
-	    sgc.updateBalance();
-	    sgc.updateUsername();
-	    
+	       
 	    
 	    
 	    JPanel startGamePanel = new JPanel(new GridLayout(1, 1, 0, 30));
