@@ -27,10 +27,11 @@ public class BetControl implements ActionListener{
 		
 	}
 	
-	public void setBalance(double balance) {
-		BetPanel betPanel = (BetPanel)container.getComponent(4); 
-		JTextField balanceTextField = betPanel.getBalanceTextField();
-		balanceTextField.setText("$" + client.getBalance());
+	public void updateBalance() 
+	{
+		BetPanel betPanel = (BetPanel)container.getComponent(4);
+		JTextField betTextField = betPanel.getBalanceTextField();
+		betTextField.setText("$" + client.getBalance());
 	}
 
 	@Override
@@ -59,6 +60,7 @@ public class BetControl implements ActionListener{
 			break;
 		case "Place Bet":
 			BetData data = new BetData(client.getUsername(), betPanel.getBet());
+			System.out.println(data.toString());
 			try {
 				client.sendToServer(data);
 			} catch (IOException e1) {

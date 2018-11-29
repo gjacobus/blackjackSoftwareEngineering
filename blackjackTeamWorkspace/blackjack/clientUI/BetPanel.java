@@ -97,7 +97,7 @@ public class BetPanel extends JPanel {
 		btnCheck.setBounds(85, 227, 61, 23);
 		add(btnCheck);
 
-		JButton btnFold = new JButton("Fold");
+		JButton btnFold = new JButton("Place Bet");
 		btnFold.addActionListener(bc);
 		btnFold.setBounds(199, 227, 53, 23);
 		add(btnFold);
