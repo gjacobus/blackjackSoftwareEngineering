@@ -40,6 +40,8 @@ public class ClientGUI extends JFrame
     client.setCreateAccountControl(cac);
     client.setLoginControl(lc);
     client.setGameControl(gc);
+    client.setStartGameControl(sgc);
+    client.setBetControl(bc);
     
     // Create the four views. (need the controller to register with the Panels
     JPanel view1 = new InitialPanel(ic);
@@ -60,7 +62,7 @@ public class ClientGUI extends JFrame
    
     
     // Show the initial view in the card layout.
-    cardLayout.show(container, "5");
+    cardLayout.show(container, "1");
     
     // Add the card layout container to the JFrame.
     this.add(container, BorderLayout.CENTER);

@@ -118,15 +118,18 @@ public class GameServer extends AbstractServer
 			{
 				if (database.getDataByUsername(loginData.getUsername()).equals("user not found"))
 				{
+					System.out.println("usernamerNotFound");
 					arg1.sendToClient("Invalid username");
 				} else if (!database.getUserPassword(loginData.getUsername()).equals(loginData.getPassword()))
 				{
+					System.out.println("passwordFake");
 					arg1.sendToClient("Invalid password");
 				}
 				else 
 				{
+					System.out.println("Good");
 					arg1.sendToClient("Balance: " + database.getUserBalance(loginData.getUsername()));
-					arg1.sendToClient("Login success");
+					arg1.sendToClient("Login success," + loginData.getUsername());
 				}
 				// store it in database file
 

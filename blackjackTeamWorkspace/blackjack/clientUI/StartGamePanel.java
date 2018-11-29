@@ -23,7 +23,7 @@ public class StartGamePanel extends JPanel
 	        
 	    JPanel namePanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    namePanel.setBackground(background);
-	    JLabel blackJack = new JLabel("BlackJack");
+	    JLabel blackJack = new JLabel("BlackJack", JLabel.CENTER);
 	    blackJack.setForeground(Color.YELLOW);
 	    namePanel.add(blackJack);
 	    
@@ -31,14 +31,11 @@ public class StartGamePanel extends JPanel
 	    JPanel userDataPanel = new JPanel(new GridLayout(2, 1, 0, 30));
 	    userDataPanel.setBackground(background);
 	    nameLabel = new JLabel("Username:", JLabel.CENTER);
+	    nameLabel.setForeground(Color.YELLOW);
 	    balanceLabel = new JLabel("Balance:", JLabel.CENTER);
+	    balanceLabel.setForeground(Color.YELLOW);
 	    userDataPanel.add(nameLabel);
-	    userDataPanel.add(balanceLabel);
-	    
-	    sgc.updateBalance();
-	    sgc.updateUsername();
-	    
-	    
+	    userDataPanel.add(balanceLabel);	    
 	    
 	    JPanel startGamePanel = new JPanel(new GridLayout(1, 1, 0, 30));
 	    JButton startGameButton  = new JButton("StartGame");
@@ -48,6 +45,7 @@ public class StartGamePanel extends JPanel
 	    box = new JPanel();
 	    box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
 	    
+	    box.add(Box.createRigidArea(new Dimension(0, 100)));
 	    box.add(namePanel);
 	    box.add(Box.createRigidArea(new Dimension(0, 100)));
 	    
@@ -79,6 +77,6 @@ public class StartGamePanel extends JPanel
 	
 	public JLabel getBalance()
 	{
-		return nameLabel;
+		return balanceLabel;
 	}
 }

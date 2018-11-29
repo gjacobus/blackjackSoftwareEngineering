@@ -13,8 +13,9 @@ public class GameClient extends AbstractClient
 	private LoginControl lc;
 	private CreateAccountControl cac;
 	private GameControl gc;
-	private String username;
-	private double balance;
+	private StartGameControl sgc;
+	private String username = "defaultName";
+	private double balance = 0.0;
 	private double betAmount;
 	private BetControl bc;
 	private int chairNum = 0;
@@ -62,6 +63,11 @@ public class GameClient extends AbstractClient
 	{
 		this.bc = bc;
 	}
+	
+	public void setStartGameControl(StartGameControl sgc)
+	{
+		this.sgc = sgc;
+	}
 
 	@Override
 	public void handleMessageFromServer(Object arg0)
@@ -77,15 +83,23 @@ public class GameClient extends AbstractClient
 		case "Invalid password":
 			lc.displayError("Password is invalid");
 			break;
-		case "Login success":
-			lc.loginSuccess();
-			break;
 		case "Username already exists":
 			cac.displayError("Username already exists");
 			break;
 		case "Create account success":
 			cac.createAccountSuccess();
 			break;
+		}
+		
+		if(message.contains("Login success"))
+		{
+			String temp[] = message.split(",");
+			this.setUsername(temp[1]);
+			System.out.println("Balance");
+			sgc.updateBalance();
+			System.out.println("userName");
+			sgc.updateUsername();
+			lc.loginSuccess();
 		}
 		if(message.contains("fullGame"))
 		{
@@ -164,8 +178,9 @@ public class GameClient extends AbstractClient
 		{
 			gc.chairIncrease();
 		}
-		else if (message.contains("Balance: ")) {
-			this.balance = Double.parseDouble(message.substring(9));
+		else if (message.contains("Balance: ")) 
+		{
+			this.setBalance(Double.parseDouble(message.substring(9)));
 		}
 
 	}
