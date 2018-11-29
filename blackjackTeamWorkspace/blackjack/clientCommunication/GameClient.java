@@ -1,7 +1,10 @@
 package clientCommunication;
 
+import java.io.IOException;
+
 import javax.swing.JPanel;
 
+import gameplay.BetControl;
 import gameplay.GameControl;
 import ocsf.client.AbstractClient;
 
@@ -10,6 +13,8 @@ public class GameClient extends AbstractClient
 	private LoginControl lc;
 	private CreateAccountControl cac;
 	private GameControl gc;
+	private BetControl bc;
+	private int chairNum = 0;
 
 	public GameClient()
 	{
@@ -29,6 +34,11 @@ public class GameClient extends AbstractClient
 	public void setGameControl(GameControl gc)
 	{
 		this.gc = gc;
+	}
+	
+	public void setBetControl(BetControl bc)
+	{
+		this.bc = bc;
 	}
 
 	@Override
@@ -55,14 +65,49 @@ public class GameClient extends AbstractClient
 			cac.createAccountSuccess();
 			break;
 		}
-		
-		if(message.contains("GameStart"))
+		if(message.contains("fullGame"))
+		{
+			bc.startGame(message);
+		}
+		else if(message.contains("chairNum"))
+		{
+			String temp[] = message.split(",");
+			chairNum = Integer.parseInt(temp[1]);
+		}
+		else if(message.contains("wait"))
+		{
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				this.sendToServer("checkStart");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(message.contains("GameStart"))
 		{
 			gc.startGame(message);
 		}
 		else if(message.contains("GameUpdate"))
 		{
 			gc.updateGame(message);
+		}
+		else if(message.contains("initialCards"))
+		{
+			gc.updateGame(message);
+		}
+		else if(message.contains("dealerInitial"))
+		{
+			gc.dealerInitial(message);
+		}
+		else if(message.contains("dealerDone"))
+		{
+			chairNum = 0;
 		}
 		else if(message.contains("nextCard"))
 		{
@@ -76,6 +121,7 @@ public class GameClient extends AbstractClient
 		else if(message.contains("canPlay"))
 		{
 			gc.canPlay(true);
+			chairNum = 0;
 		}
 		else if(message.contains("DealerMove"))
 		{
