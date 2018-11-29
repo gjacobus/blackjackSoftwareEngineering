@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import clientUI.GamePanel;
 import clientUI.StartGamePanel;
 
 public class StartGameControl implements ActionListener {
