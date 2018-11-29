@@ -65,13 +65,13 @@ public class ClientGUI extends JFrame
    
     
     // Show the initial view in the card layout.
-    cardLayout.show(container, "1");
+    cardLayout.show(container, "5");
     
     // Add the card layout container to the JFrame.
     this.add(container, BorderLayout.CENTER);
 
     // Show the JFrame.
-    this.setSize(1000, 750);
+    this.setSize(1250, 750);
     this.setVisible(true);
   }
 

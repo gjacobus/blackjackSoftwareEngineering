@@ -1,5 +1,6 @@
 package clientCommunication;
 
+import java.awt.CardLayout;
 import java.io.IOException;
 
 import javax.swing.JPanel;
@@ -143,7 +144,8 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("dealerDone"))
 		{
-			chairNum = 0;
+			System.out.println(message);
+			gc.chairReset();
 		}
 		else if(message.contains("nextCard"))
 		{
@@ -167,7 +169,7 @@ public class GameClient extends AbstractClient
 		{
 			gc.checkResults();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

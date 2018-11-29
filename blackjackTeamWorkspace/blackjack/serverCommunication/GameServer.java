@@ -108,7 +108,14 @@ public class GameServer extends AbstractServer
 		// TODO Auto-generated method stub
 		// log.append("Message from Client" + arg0.toString() + arg1.toString() + "\n");
 
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		System.out.println(arg0.toString());
+		System.out.println("namesArray: " + names.toString());
 		if (arg0 instanceof LoginData)
 		{
 			LoginData loginData = (LoginData) arg0;
@@ -218,11 +225,9 @@ public class GameServer extends AbstractServer
 		else if(arg0.toString().contains("initialCards"))
 		{
 			cardNum++;
-			if(currentChair >= names.size())
-			{
-				this.sendToAllClients("dealerInitial");
-			}
-			if(cardNum >= 2)
+			System.out.println("currentChair: " + currentChair);
+			System.out.println("cardNum:" + cardNum);
+			if(cardNum > 2)
 			{
 				currentChair++;
 				cardNum = 0;
@@ -233,9 +238,16 @@ public class GameServer extends AbstractServer
 				int temp = nextCard();
 				this.sendToAllClients("initialCards=" + temp);
 			}
+			if(currentChair >= names.size())
+			{
+				int temp = nextCard();
+				this.sendToAllClients("dealerInitial=" + temp);
+			}
 		}
 		else if(arg0.toString().contains("dealerInitial"))
 		{
+			int temp = nextCard();
+			this.sendToAllClients("dealerInitial=" + temp);
 			currentChair = 0;
 			this.sendToAllClients("dealerDone");
 		}
@@ -250,7 +262,7 @@ public class GameServer extends AbstractServer
 			currentChair += 1;
 			this.sendToAllClients("chairIncrease");
 			try {
-				if(arg0.equals("Stay" + (names.size())))
+				if(arg0.equals("Stay" + (names.size() - 1)))
 				{
 					int temp = nextCard();
 					this.sendToAllClients("DealerMove=" + temp);
@@ -268,9 +280,22 @@ public class GameServer extends AbstractServer
 		}
 		else if(arg0.toString().equals("DealerDone"))
 		{
-			shuffleDeck();
-			System.out.println("CHeckum");
+			System.out.println("Checkum");
 			this.sendToAllClients("CheckResults");
+		}
+		else if(arg0.toString().equals("resetGame"))
+		{
+			this.sendToAllClients("dealerDone");
+			shuffleDeck();
+			currentChair = 0;
+			cardNum = 0;
+			timerCheck = 1;
+			System.out.println(names.toString());
+			if(names.removeAll(names))
+			{
+				System.out.println(names.toString());
+				System.out.println("Game Reset");
+			}
 		}
 	}
 	
@@ -279,6 +304,7 @@ public class GameServer extends AbstractServer
 		currentNum = 0;
 		Random seed = new Random();
 		int deckSize = 52;
+		deck = new ArrayList<Integer>();
 		for(int i = 0; i < deckSize; i++)
 		{
 			int temp = seed.nextInt(deckSize);

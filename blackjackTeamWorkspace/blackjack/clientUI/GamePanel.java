@@ -72,6 +72,7 @@ public class GamePanel extends JPanel
 	    JPanel dealerPanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    dealerPanel.setBackground(background);
 	    dealerScore = new JLabel("Dealer Score: 0");
+	    dealerScore.setSize(new Dimension(200, 120));
 	    dealerScore.setForeground(Color.YELLOW);
 	    dealerCards.add(dealerScore);
 	    dealerCards.add(Box.createRigidArea(new Dimension(60, 0)));

@@ -38,6 +38,11 @@ public class GameControl implements ActionListener
 		  currentChair += 1;
 	  }
 	  
+	  public void chairReset()
+	  {
+		  currentChair = 0;
+	  }
+	  
 	  // Handle button clicks.
 	  public void actionPerformed(ActionEvent ae)
 	  {
@@ -142,6 +147,12 @@ public class GameControl implements ActionListener
 				  newScore += cardNum;
 				  gamePanel.updateUserScore(newScore);
 			  }
+			  try {
+				game.sendToServer("initialCards");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		  }
 		  else if(message.contains("nextCard"))
 		  {
@@ -389,8 +400,18 @@ public class GameControl implements ActionListener
 	  
 	  public void resetGame()
 	  {
+		  
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  gamePanel.resetGame();
+		  dealerInitial = true;
+		  try {
+			game.sendToServer("resetGame");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  CardLayout cardLayout = (CardLayout) container.getLayout();
+		  cardLayout.show(container, "5");
 	  }
 	  // Method that displays a message in the error - could be invoked by ChatClient or by this class (see above)
 	  public void displayError(String error)
