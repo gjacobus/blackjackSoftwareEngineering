@@ -1,4 +1,4 @@
-import javax.swing.JButton;
+iimport javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -23,9 +23,9 @@ public class BetGuiPopupWindow extends JPanel {
 			
 			inner.setLayout(null);
 			this.add(inner);
-		
+			
 		JLabel lblPlaceYourBets = new JLabel("Place Your Bet");
-		lblPlaceYourBets.setBounds(183, 14, 69, 14);
+		lblPlaceYourBets.setBounds(183, 14, 100, 14);
 		add(lblPlaceYourBets);
 		
 		textField = new JTextField();
@@ -39,11 +39,11 @@ public class BetGuiPopupWindow extends JPanel {
 		textField_1.setColumns(10);
 		
 		JLabel lblAccountBalance = new JLabel("Account Balance");
-		lblAccountBalance.setBounds(183, 85, 79, 14);
+		lblAccountBalance.setBounds(183, 85, 100, 14);
 		add(lblAccountBalance);
 		
 		JLabel lblBetAmount = new JLabel("Bet Amount");
-		lblBetAmount.setBounds(183, 133, 56, 14);
+		lblBetAmount.setBounds(183, 133, 100, 14);
 		add(lblBetAmount);
 		
 		JButton btnNewButton_1 = new JButton("$20");
@@ -51,7 +51,7 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_1.setBounds(270, 192, 51, 23);
+		btnNewButton_1.setBounds(275, 192, 65, 23);
 		add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("$100");
@@ -59,15 +59,15 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_2.setBounds(335, 192, 57, 23);
+		btnNewButton_2.setBounds(350, 192, 65, 23);
 		add(btnNewButton_2);
 		
-		JButton button = new JButton("$!");
+		JButton button = new JButton("$1");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		button.setBounds(85, 192, 43, 23);
+		button.setBounds(50, 192, 65, 23);
 		add(button);
 		
 		JButton button_1 = new JButton("$5");
@@ -75,7 +75,7 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		button_1.setBounds(145, 192, 45, 23);
+		button_1.setBounds(125, 192, 65, 23);
 		add(button_1);
 		
 		JButton btnNewButton = new JButton("$10");
@@ -83,7 +83,7 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton.setBounds(205, 192, 51, 23);
+		btnNewButton.setBounds(200, 192, 65, 23);
 		add(btnNewButton);
 		
 		JButton btnCheck = new JButton("Check");
@@ -91,7 +91,7 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnCheck.setBounds(85, 227, 61, 23);
+		btnCheck.setBounds(135, 227, 85, 23);
 		add(btnCheck);
 		
 		JButton btnFold = new JButton("Fold");
@@ -99,7 +99,7 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnFold.setBounds(199, 227, 53, 23);
+		btnFold.setBounds(230, 227, 85, 23);
 		add(btnFold);
 		
 		JButton btnWatchHand = new JButton("Watch Hand");
@@ -107,8 +107,12 @@ public class BetGuiPopupWindow extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnWatchHand.setBounds(286, 227, 91, 23);
+		btnWatchHand.setBounds(325, 227, 100, 23);
 		add(btnWatchHand);
+		
+		JButton btnBet = new JButton("Bet");
+		btnBet.setBounds(40, 226, 85, 23);
+		add(btnBet);
 	}
 	public static void main(String[] args)
 	  {
