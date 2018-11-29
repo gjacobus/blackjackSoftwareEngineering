@@ -62,8 +62,18 @@ public class BetControl implements ActionListener{
 			BetData data = new BetData(client.getUsername(), betPanel.getBet());
 			System.out.println(data.toString());
 			betPanel.displayError("");
+			client.setBetAmount(betPanel.getBet());
+			System.out.println(client.getBetAmount());
 			try {
 				client.sendToServer(data);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+		case "Add Money":
+			try {
+				client.sendToServer("addMoney=" + client.getUsername());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -81,6 +91,13 @@ public class BetControl implements ActionListener{
 		if (newAmount <= balance) {
 			betTextField.setText("$" + Double.toString(newAmount));
 		}
+	}
+	
+	public void resetBet()
+	{
+		BetPanel betPanel = (BetPanel)container.getComponent(4); 
+		JTextField betTextField = betPanel.getBetTextField();
+		betTextField.setText("$0.0");
 	}
 	
 	public void displayError(String message)

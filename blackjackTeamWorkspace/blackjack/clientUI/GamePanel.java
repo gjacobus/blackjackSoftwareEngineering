@@ -35,7 +35,7 @@ public class GamePanel extends JPanel
 		  return betAmt.getText();
 	  }
 	  
-	  public void setBetAmount(int amount)
+	  public void setBetAmount(double amount)
 	  {
 		  betAmt.setText("Bet: " + amount);
 	  }

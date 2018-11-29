@@ -313,30 +313,60 @@ public class GameControl implements ActionListener
 		  
 		  String bet = gamePanel.getBetAmount();
 		  array = bet.split(":");
-		  int betAmount = Integer.parseInt(array[1].trim());
+		  double betAmount = Double.parseDouble(array[1].trim());
 		  
 		  System.out.println(dealerScore + " " + userScore);
 		  if(this.busted)
 		  {
 			  displayError("You busted by going over 21, you lose $" + betAmount);
+			  try {
+				game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * -1));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		  }
 		  else
 		  {
 			  if(dealerScore > 21)
 			  {
 				  displayError("You Won, the dealer busted, you win double $" + betAmount);
+				  try {
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
 		      else if(dealerScore > userScore)
 			  {
 				  displayError("Dealer Won, you lose $" + betAmount);
+				  try {
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * -1));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
 			  else if(dealerScore == userScore)
 			  {
 				  displayError("You tied, you keep $" + betAmount);
+				  try {
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 1));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
 			  else if(userScore > dealerScore)
 			  {
 				  displayError("You Won, you win double $" + betAmount);
+				  try {
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
 		  }
 	  }
@@ -416,6 +446,12 @@ public class GameControl implements ActionListener
 		}
 		  CardLayout cardLayout = (CardLayout) container.getLayout();
 		  cardLayout.show(container, "5");
+	  }
+	  
+	  public void updateBet()
+	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.setBetAmount(game.getBetAmount());
 	  }
 	  // Method that displays a message in the error - could be invoked by ChatClient or by this class (see above)
 	  public void displayError(String error)

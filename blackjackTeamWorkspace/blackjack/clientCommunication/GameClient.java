@@ -17,7 +17,7 @@ public class GameClient extends AbstractClient
 	private StartGameControl sgc;
 	private String username = "defaultName";
 	private double balance = 0.0;
-	private double betAmount;
+	private double betAmount = 0.0;
 	private BetControl bc;
 	private int chairNum = 0;
 
@@ -107,8 +107,12 @@ public class GameClient extends AbstractClient
 		{
 			bc.displayError("Game in progress, try again in 30 sec");
 		}
-		if(message.contains("fullGame"))
+		else if(message.contains("fullGame"))
 		{
+		}
+		else if(message.contains("updateBet"))
+		{
+			gc.updateBet();
 		}
 		else if(message.contains("chairNum"))
 		{
@@ -188,6 +192,13 @@ public class GameClient extends AbstractClient
 		else if (message.contains("Balance: ")) 
 		{
 			this.setBalance(Double.parseDouble(message.substring(9)));
+		}
+		else if (message.contains("updateBalance")) 
+		{
+			String temp[] = message.split("=");
+			balance = Double.parseDouble(temp[1]);
+			bc.updateBalance();
+			bc.resetBet();
 		}
 
 	}

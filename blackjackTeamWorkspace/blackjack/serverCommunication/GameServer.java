@@ -12,6 +12,7 @@ import gameplay.GameData;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -184,6 +185,12 @@ public class GameServer extends AbstractServer
 			{
 				currentChair++;
 				timerCheck++;
+				try {
+					arg1.sendToClient("updateBet");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				if(names.size() == 1)
 				{
 					try {
@@ -307,6 +314,55 @@ public class GameServer extends AbstractServer
 			{
 				System.out.println(names.toString());
 				System.out.println("Game Reset");
+			}
+		}
+		else if(arg0.toString().contains("updateBalance"))
+		{
+			String temp[] = arg0.toString().split(",");
+			String username = temp[1];
+			String betAmount = temp[2];
+			
+			System.out.println(username);
+			System.out.println(betAmount);
+			try {
+				ArrayList<String> res = database.query("select balance from BlackJackData where username='" + username + "'");
+				System.out.println(res);
+				Double newBalance = Double.parseDouble(res.get(0)) + Double.parseDouble(betAmount);
+				System.out.println(newBalance);
+				database.executeDML("update blackjackdata set balance = '" + newBalance + "' where username='" + username + "'");
+				try {
+					
+					arg1.sendToClient("updateBalance=" + newBalance);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(arg0.toString().contains("addMoney"))
+		{
+			String temp[] = arg0.toString().split("=");
+			String username = temp[1];
+			
+			try {
+				ArrayList<String> res = database.query("select balance from BlackJackData where username='" + username + "'");
+				System.out.println(res);
+				Double newBalance = Double.parseDouble(res.get(0)) + 50.0;
+				System.out.println(newBalance);
+				database.executeDML("update blackjackdata set balance = '" + newBalance + "' where username='" + username + "'");
+				try {
+					
+					arg1.sendToClient("updateBalance=" + newBalance);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}

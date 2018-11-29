@@ -99,14 +99,19 @@ public class BetPanel extends JPanel {
 		btnNewButton_2.setBounds(380, 192, 75, 23);
 		add(btnNewButton_2);
 
-		JButton btnFold = new JButton("Place Bet");
-		btnFold.addActionListener(bc);
-		btnFold.setBounds(200, 227, 150, 23);
-		add(btnFold);
+		JButton btnPlaceBet = new JButton("Place Bet");
+		btnPlaceBet.addActionListener(bc);
+		btnPlaceBet.setBounds(200, 227, 150, 23);
+		add(btnPlaceBet);
+		
+		JButton btnAddMoney = new JButton("Add Money");
+		btnAddMoney.addActionListener(bc);
+		btnAddMoney.setBounds(200, 260, 150, 23);
+		add(btnAddMoney);
 	}
 
 	public double getBet() {
-		double toReturn = Double.parseDouble(textField.getText().substring(1));
+		double toReturn = Double.parseDouble(textField_1.getText().substring(1));
 		return toReturn;
 	}
 	
