@@ -22,6 +22,7 @@ public class GameControl implements ActionListener
 	  private int currentChair;
 	  private boolean canPlay = false;
 	  private boolean busted;
+	  private boolean dealerInitial = true;
 	  
 	  
 	  // Constructor for the Game controller.
@@ -76,17 +77,73 @@ public class GameControl implements ActionListener
 		  CardLayout cardLayout = (CardLayout) container.getLayout();
 		  cardLayout.show(container, "6");
 		  
-		  String[] temp = message.split(",");
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  gamePanel.resetGame();
 		  gamePanel.updateDealerScore(0);
 		  gamePanel.updateUserScore(0);
+		  
+		  try {
+			game.sendToServer("initialCards");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	  }
 	  
 	  public void updateGame(String message)
 	  {
 		  String[] temp = message.split("=");
-		  if(message.contains("nextCard"))
+		  if(message.contains("initialCards"))
+		  {
+			  String cardPath = "/Card_Images/";
+			  String type = "H";
+			  int cardNum = Integer.parseInt(temp[1]);
+			  if(cardNum <= 12)
+			  {
+				  type = "H";
+			  }
+			  else if(cardNum <= 25)
+			  {
+				  type = "S";
+			  }
+			  else if(cardNum <= 38)
+			  {
+				  type = "C";
+			  }
+			  else if(cardNum <= 51)
+			  {
+				  type = "D";
+			  }
+			  cardNum = cardNum % 13 + 1;
+			  String num = Integer.toString(cardNum);
+			  cardPath += num + type + ".png";
+			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+			  gamePanel.addUserCards(currentChair, cardPath);
+			  if(canPlay)
+			  {
+				  String tempScore = gamePanel.getUserScore();
+				  String[] array = tempScore.split(":");
+				  int newScore = Integer.parseInt(array[1].trim());
+				  if(cardNum > 10)
+				  {
+					  cardNum = 10;
+				  }
+				  else if(cardNum == 1)
+				  {
+					  if(newScore + cardNum > 21)
+					  {
+						  cardNum = 1;
+					  }
+					  else
+					  {
+						  cardNum = 11;
+					  }
+				  }
+				  newScore += cardNum;
+				  gamePanel.updateUserScore(newScore);
+			  }
+		  }
+		  else if(message.contains("nextCard"))
 		  {
 			  String cardPath = "/Card_Images/";
 			  String type = "H";
@@ -148,7 +205,7 @@ public class GameControl implements ActionListener
 				  }
 			  }
 		  }
-		  if(message.contains("DealerMove"))
+		  else if(message.contains("DealerMove"))
 		  {
 			  System.out.println(message);
 			  String cardPath = "/Card_Images/";
@@ -268,7 +325,68 @@ public class GameControl implements ActionListener
 			  }
 		  }
 	  }
-
+	  
+	  public void dealerInitial(String message)
+	  {
+		  String[] temp = message.split("=");
+		  System.out.println(message);
+		  String cardPath = "/Card_Images/";
+		  String type = "H";
+		  int cardNum = Integer.parseInt(temp[1]);
+		  if(cardNum <= 12)
+		  {
+			  type = "H";
+		  }
+		  else if(cardNum <= 25)
+		  {
+			  type = "S";
+		  }
+		  else if(cardNum <= 38)
+		  {
+			  type = "C";
+		  }
+		  else if(cardNum <= 51)
+		  {
+			  type = "D";
+		  }
+		  cardNum = cardNum % 13 + 1;
+		  String num = Integer.toString(cardNum);
+		  cardPath += num + type + ".png";
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.addDealerCards(cardPath);
+		  String tempScore = gamePanel.getDealerScore();
+		  String[] array = tempScore.split(":");
+		  int newScore = Integer.parseInt(array[1].trim());
+		  if(cardNum > 10)
+		  {
+			  cardNum = 10;
+		  }
+		  else if(cardNum == 1)
+		  {
+			  if(newScore + cardNum > 21)
+			  {
+				  cardNum = 1;
+			  }
+			  else
+			  {
+				  cardNum = 11;
+			  }
+		  }
+		  newScore += cardNum;
+		  gamePanel.updateDealerScore(newScore);	
+		  
+		  if(dealerInitial)
+		  {
+			  dealerInitial = false;
+			  try {
+				game.sendToServer("dealerInitial");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  }
+	  }
+	  
 	  public void resetGame()
 	  {
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);

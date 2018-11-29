@@ -24,6 +24,8 @@ public class GameServer extends AbstractServer
 	private int currentNum = 0;
 	private ArrayList<String> names = new ArrayList<String>();
 	private int currentChair = 0;
+	private int timerCheck = 1;
+	private int cardNum = 0;
 
 	public GameServer()
 	{
@@ -155,23 +157,67 @@ public class GameServer extends AbstractServer
 		{
 			BetData betData = (BetData) arg0;
 			//verification of betData, then game starts
-			//TODO verify bet data add user to list, if name is added and first user canPLay = true, else canPlay = false
-			if(names.size() == 1)
+			//TODO verify bet data add user to list, if name is added and first user canPlay = true, else canPlay = false
+			String username = betData.getUserName();
+			if(addUser(username))
 			{
-				try {
-					arg1.sendToClient("canPlay");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				currentChair++;
+				timerCheck++;
+				if(names.size() == 1)
+				{
+					try {
+						arg1.sendToClient("canPlay");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
+				else
+				{
+					arg1.sendToClient("chairNum," + currentChair);
+					arg1.sendToClient("Stay");
+				}
+				arg1.sendToClient("wait");
 			}
-			String message = "GameStart";
-			try {
-				arg1.sendToClient(message);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			else
+			{
+				arg1.sendToClient("fullGame");
 			}
+		}
+		else if(arg0.toString().equals("checkStart"))
+		{
+			timerCheck++;
+			if(timerCheck >= names.size() + 1)
+			{
+				currentChair = 0;
+				//TODO maybe who knows
+				this.notifyAll();
+				this.sendToAllClients("GameStart");
+			}
+		}
+		else if(arg0.toString().contains("initialCards"))
+		{
+			cardNum++;
+			if(currentChair >= names.size())
+			{
+				this.sendToAllClients("dealerInitial");
+			}
+			if(cardNum >= 2)
+			{
+				currentChair++;
+				cardNum = 0;
+				this.sendToAllClients("chairIncrease");
+			}
+			else
+			{
+				int temp = nextCard();
+				this.sendToAllClients("initialCards=" + temp);
+			}
+		}
+		else if(arg0.toString().contains("dealerInitial"))
+		{
+			currentChair = 0;
+			this.sendToAllClients("dealerDone");
 		}
 		else if(arg0.toString().equals("nextCard"))
 		{
