@@ -21,12 +21,19 @@ public class GameControl implements ActionListener
 	  private GameClient game;
 	  private int currentChair;
 	  private boolean canPlay = false;
-	  private boolean busted;
+	  private boolean busted = false;
 	  private boolean dealerInitial = true;
+	  private boolean extraDealerCard = false;
+	  private boolean extraUserCard = false;
+	  private boolean blackJack = false;
 	  private boolean ace1 = false;
 	  private boolean ace2 = false;
 	  private boolean ace3 = false;
 	  private boolean ace4 = false;
+	  private boolean dealerace1 = false;
+	  private boolean dealerace2 = false;
+	  private boolean dealerace3 = false;
+	  private boolean dealerace4 = false;
 	  
 	  
 	  // Constructor for the Game controller.
@@ -101,6 +108,17 @@ public class GameControl implements ActionListener
 	  
 	  public void updateGame(String message)
 	  {
+		  
+		  if(blackJack)
+		  {
+			  try {
+				game.sendToServer("Stay" + currentChair);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  return;
+		  }
 		  String[] temp = message.split("=");
 		  if(message.contains("initialCards"))
 		  {
@@ -139,6 +157,7 @@ public class GameControl implements ActionListener
 				  }
 				  else if(cardNum == 1)
 				  {
+					  aceUser();
 					  if(newScore + cardNum > 21)
 					  {
 						  cardNum = 1;
@@ -150,6 +169,10 @@ public class GameControl implements ActionListener
 				  }
 				  newScore += cardNum;
 				  gamePanel.updateUserScore(newScore);
+				  if(newScore == 21)
+				  {
+					  blackJack = true;
+				  }
 			  }
 			  try {
 				game.sendToServer("initialCards");
@@ -195,7 +218,8 @@ public class GameControl implements ActionListener
 				  }
 				  else if(cardNum == 1)
 				  {
-					  if(newScore + cardNum > 21)
+					  aceUser();
+					  if(newScore + 11 > 21)
 					  {
 						  cardNum = 1;
 					  }
@@ -204,9 +228,28 @@ public class GameControl implements ActionListener
 						  cardNum = 11;
 					  }
 				  }
+				  if(newScore + cardNum > 21 && (ace1 || ace2 || ace3 || ace4))
+				  {
+					  userAceFalse();
+					  newScore -= 10;
+				  }
 				  newScore += cardNum;
+				  if(!extraUserCard)
+				  {
+					  extraUserCard = true;
+				  }
 				  gamePanel.updateUserScore(newScore);
-				  if(newScore > 21)
+				  if(newScore == 21)
+				  {
+					  this.canPlay = false;
+					  try {
+						game.sendToServer("Stay" + currentChair);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				  }
+				  else if(newScore > 21)
 				  {
 					  gamePanel.setError("You Busted");
 					  this.canPlay = false;
@@ -222,6 +265,32 @@ public class GameControl implements ActionListener
 		  }
 		  else if(message.contains("DealerMove"))
 		  {
+			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+			  String dealer[] = gamePanel.getDealerScore().split(":");
+			  int dealerScore = Integer.parseInt(dealer[1].trim());
+			  
+			  if(dealerScore == 21 && !extraDealerCard)
+			  {
+				  try {
+					game.sendToServer("DealerDone");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  }
+			  extraDealerCard = true;
+			  if(dealerScore>= 17)
+			  {
+				  try {
+					game.sendToServer("DealerDone");
+					return;
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  }
+			  
+			  
 			  System.out.println(message);
 			  String cardPath = "/Card_Images/";
 			  String type = "H";
@@ -245,7 +314,6 @@ public class GameControl implements ActionListener
 			  cardNum = cardNum % 13 + 1;
 			  String num = Integer.toString(cardNum);
 			  cardPath += num + type + ".png";
-			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 			  gamePanel.addDealerCards(cardPath);
 			  String tempScore = gamePanel.getDealerScore();
 			  String[] array = tempScore.split(":");
@@ -256,7 +324,8 @@ public class GameControl implements ActionListener
 			  }
 			  else if(cardNum == 1)
 			  {
-				  if(newScore + cardNum > 21)
+				  aceDealer();
+				  if(newScore + 11 > 21)
 				  {
 					  cardNum = 1;
 				  }
@@ -265,6 +334,13 @@ public class GameControl implements ActionListener
 					  cardNum = 11;
 				  }
 			  }
+			  
+			  if(newScore + cardNum > 21 && (dealerace1 || dealerace2 || dealerace3 || dealerace4))
+			  {
+				  dealerAceFalse();
+				  newScore -= 10;
+			  }
+			  
 			  newScore += cardNum;
 			  gamePanel.updateDealerScore(newScore);
 			  if(newScore > 21)
@@ -328,7 +404,27 @@ public class GameControl implements ActionListener
 		  }
 		  else
 		  {
-			  if(dealerScore > 21)
+			  if(!extraDealerCard && !blackJack)
+			  {
+				  displayError("You Lost, the dealer got BlackJack, you lose $" + betAmount);
+				  try {
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  }
+			  else if (!extraDealerCard && blackJack)
+			  {
+				  displayError("You tied, you keep $" + betAmount);
+				  try {
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 1));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  }
+			  else if(dealerScore > 21)
 			  {
 				  displayError("You Won, the dealer busted, you win double $" + betAmount);
 				  try {
@@ -408,6 +504,7 @@ public class GameControl implements ActionListener
 		  }
 		  else if(cardNum == 1)
 		  {
+			  aceDealer();
 			  if(newScore + cardNum > 21)
 			  {
 				  cardNum = 1;
@@ -434,10 +531,21 @@ public class GameControl implements ActionListener
 	  
 	  public void resetGame()
 	  {
-		  
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  gamePanel.resetGame();
 		  dealerInitial = true;
+		  busted = false;
+		  extraDealerCard = false;
+		  extraUserCard = false;
+		  blackJack = false;
+		  userAceFalse();
+		  userAceFalse();
+		  userAceFalse();
+		  userAceFalse();
+		  dealerAceFalse();
+		  dealerAceFalse();
+		  dealerAceFalse();
+		  dealerAceFalse();
 		  try {
 			game.sendToServer("resetGame");
 		} catch (IOException e) {
@@ -458,6 +566,97 @@ public class GameControl implements ActionListener
 	  {
 	    GamePanel GamePanel = (GamePanel)container.getComponent(5);
 	    GamePanel.setError(error);
+	  }
+	  
+	  private void aceUser()
+	  {
+		  if(ace1)
+		  {
+			  ace2 = true;
+		  }
+		  else if(ace2)
+		  {
+			  ace3 = true;
+		  }
+		  else if(ace3)
+		  {
+			  ace4 = true;
+		  }
+		  ace1 = true;
+	  }
+	  
+	  private void userAceFalse()
+	  {
+		  if(ace4)
+		  {
+			  ace4 = false;
+		  }
+		  else if(ace3)
+		  {
+			  ace3 = false;
+		  }
+		  else if(ace2)
+		  {
+			  ace2 = false;
+		  }
+		  else if(ace1)
+		  {
+			ace1 = false;  
+		  }
+	  }
+	  
+	  private void aceDealer()
+	  {
+		  if(dealerace1)
+		  {
+			  dealerace2 = true;
+		  }
+		  else if(dealerace2)
+		  {
+			  dealerace3 = true;
+		  }
+		  else if(dealerace3)
+		  {
+			  dealerace4 = true;
+		  }
+		  dealerace1 = true;
+	  }
+	  
+	  private void dealerAceFalse()
+	  {
+		  if(dealerace4)
+		  {
+			  dealerace4 = false;
+		  }
+		  else if(dealerace3)
+		  {
+			  dealerace3 = false;
+		  }
+		  else if(dealerace2)
+		  {
+			  dealerace2 = false;
+		  }
+		  else if(dealerace1)
+		  {
+			  dealerace1 = false;  
+		  }
+	  }
+	  
+	  public void checkScore()
+	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  String temp[] = gamePanel.getUserScore().split(":");
+		  
+		  if(Integer.parseInt(temp[1].trim()) == 21)
+		  {
+			  this.canPlay = false;
+			  try {
+				game.sendToServer("Stay" + currentChair);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				
+			}
+		  }
 	  }
 }
 

@@ -154,6 +154,7 @@ public class GameClient extends AbstractClient
 		{
 			System.out.println(message);
 			gc.chairReset();
+			gc.checkScore();
 		}
 		else if(message.contains("nextCard"))
 		{
