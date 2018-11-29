@@ -34,7 +34,7 @@ public class ClientGUI extends JFrame
     GameClient client = new GameClient();
     LoginControl lc = new LoginControl(container, client); //Probably will want to pass in ChatClient here
     CreateAccountControl cac = new CreateAccountControl(container, client);
-    StartGameControl sgc = new StartGameControl();
+    StartGameControl sgc = new StartGameControl(container, client);
     GameControl gc = new GameControl(container, client);
     BetControl bc = new BetControl(container, client);
     client.setCreateAccountControl(cac);
