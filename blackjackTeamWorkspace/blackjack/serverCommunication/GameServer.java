@@ -123,6 +123,7 @@ public class GameServer extends AbstractServer
 				}
 				else 
 				{
+					arg1.sendToClient("Balance: " + database.getUserBalance(loginData.getUsername()));
 					arg1.sendToClient("Login success");
 				}
 				// store it in database file

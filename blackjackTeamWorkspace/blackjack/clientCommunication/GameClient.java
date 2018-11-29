@@ -10,10 +10,32 @@ public class GameClient extends AbstractClient
 	private LoginControl lc;
 	private CreateAccountControl cac;
 	private GameControl gc;
+	private String username;
+	private double balance;
+	private double betAmount;
 
 	public GameClient()
 	{
 		super("localhost", 12345);
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	public double getBetAmount() {
+		return this.betAmount;
+	}
+	public void setBetAmount(double amt) {
+		betAmount = amt;
 	}
 
 	public void setLoginControl(LoginControl lc)
@@ -96,6 +118,9 @@ public class GameClient extends AbstractClient
 		else if(message.equals("chairIncrease"))
 		{
 			gc.chairIncrease();
+		}
+		else if (message.contains("Balance: ")) {
+			this.balance = Double.parseDouble(message.substring(9));
 		}
 
 	}
