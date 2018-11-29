@@ -57,6 +57,7 @@ public class BetControl implements ActionListener{
 			break;
 		case "Place Bet":
 			BetData data = new BetData(client.getUsername(), betPanel.getBet());
+			System.out.println(data.toString());
 			try {
 				client.sendToServer(data);
 			} catch (IOException e1) {

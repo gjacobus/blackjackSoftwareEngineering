@@ -1,6 +1,8 @@
 package gameplay;
 
-public class BetData 
+import java.io.Serializable;
+
+public class BetData implements Serializable
 {
 	private double betAmount;
 	private String username;
