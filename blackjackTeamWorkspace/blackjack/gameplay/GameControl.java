@@ -689,5 +689,14 @@ public class GameControl implements ActionListener
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  gamePanel.setBalance(balance);
 	  }
+	  
+	  public void updateNames(String names)
+	  {
+		  String temp[] = names.split(",");
+		  for(int i = 0; i < temp.length; i++)
+		  {
+			  System.out.println(temp[i]);
+		  }
+	  }
 }
 

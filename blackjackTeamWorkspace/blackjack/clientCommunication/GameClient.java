@@ -136,7 +136,19 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("GameStart"))
 		{
+			try {
+				this.sendToServer("updateNames");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			gc.startGame(message);
+		}
+		else if (message.contains("updateNames"))
+		{
+			System.out.println(message);
+			String temp[] = message.split("=");
+			gc.updateNames(temp[1]);
 		}
 		else if(message.contains("GameUpdate"))
 		{

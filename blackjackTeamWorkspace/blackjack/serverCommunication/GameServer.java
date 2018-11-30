@@ -240,6 +240,15 @@ public class GameServer extends AbstractServer
 				this.sendToAllClients("GameStart");
 			}
 		}
+		else if(arg0.toString().contains("updateNames"))
+		{
+			try {
+				arg1.sendToClient("updateNames=" + names);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		else if(arg0.toString().contains("initialCards"))
 		{
 			cardNum++;
