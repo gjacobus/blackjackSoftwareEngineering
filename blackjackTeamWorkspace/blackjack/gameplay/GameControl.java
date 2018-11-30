@@ -683,5 +683,11 @@ public class GameControl implements ActionListener
 			}
 		  }
 	  }
+	  
+	  public void setBalance(Double balance)
+	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.setBalance(balance);
+	  }
 }
 
