@@ -22,12 +22,19 @@ public class GamePanel extends JPanel
 	  private JLabel dealerScore;
 	  private JLabel userScore;
 	  private JLabel betAmt;
+	  private JLabel balance;
 	  private JPanel box;
 	  
 	  // Getter for the text in the username field.
 	  public String getUsername()
 	  {
 	    return usernameField.getText();
+	  }
+	  
+	  public void setBalance(double balance)
+	  {
+		  this.balance.setText("Balance: " + balance);
+		  this.repaint();
 	  }
 	  
 	  public String getBetAmount()
@@ -38,6 +45,7 @@ public class GamePanel extends JPanel
 	  public void setBetAmount(double amount)
 	  {
 		  betAmt.setText("Bet: " + amount);
+		  this.repaint();
 	  }
 	  
 	  // Setter for the error text.
@@ -52,6 +60,7 @@ public class GamePanel extends JPanel
 			  errorLabel.setVisible(true);
 			  errorLabel.setText(error);
 		  }
+		  this.repaint();
 
 	  }
 	  
@@ -120,12 +129,12 @@ public class GamePanel extends JPanel
 	    hitButton.addActionListener(gc);
 	    JButton stayButton = new JButton("Stay");
 	    stayButton.addActionListener(gc);
-	    JLabel balAmt = new JLabel("Balance: ");
-	    balAmt.setForeground(Color.YELLOW);
+	    balance = new JLabel("Balance: ");
+	    balance.setForeground(Color.YELLOW);
 	    infoAndButtonsPanel.add(betAmt);
 	    infoAndButtonsPanel.add(hitButton);
 	    infoAndButtonsPanel.add(stayButton);
-	    infoAndButtonsPanel.add(balAmt);
+	    infoAndButtonsPanel.add(balance);
 	    
 	    JPanel userScorePanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    userScorePanel.setBackground(background);
@@ -162,6 +171,7 @@ public class GamePanel extends JPanel
 	  public void updateDealerScore(int score)
 	  {
 		  dealerScore.setText("DealerScore: " + score);
+		  this.repaint();
 	  }
 	  
 	  public String getDealerScore()
@@ -244,6 +254,7 @@ public class GamePanel extends JPanel
 	  public void updateUserScore(int score)
 	  {
 		  userScore.setText("Current Score: " + score);
+		  this.repaint();
 	  }
 	  
 	  public String getUserScore()
@@ -257,6 +268,7 @@ public class GamePanel extends JPanel
 		  user2Cards.removeAll();
 		  user3Cards.removeAll();
 		  user4Cards.removeAll();
+		  this.repaint();
 	  }
 	  
 	  private void resetText()
@@ -271,5 +283,6 @@ public class GamePanel extends JPanel
 		  resetText();
 		  resetUserCards();
 		  resetDealerCards();
+		  this.repaint();
 	  }
 }

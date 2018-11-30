@@ -193,6 +193,7 @@ public class GameClient extends AbstractClient
 		else if (message.contains("Balance: ")) 
 		{
 			this.setBalance(Double.parseDouble(message.substring(9)));
+			gc.setBalance(balance);
 		}
 		else if (message.contains("updateBalance")) 
 		{
@@ -200,6 +201,7 @@ public class GameClient extends AbstractClient
 			balance = Double.parseDouble(temp[1]);
 			bc.updateBalance();
 			bc.resetBet();
+			gc.setBalance(balance);
 		}
 
 	}

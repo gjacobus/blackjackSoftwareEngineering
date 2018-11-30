@@ -19,5 +19,8 @@ INDEX VERSION 1.130+C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineeri
 2978330599.index
 636016986.index
 4213348864.index
+<<<<<<< HEAD
 1896765531.index
+=======
+>>>>>>> master
 2538215463.index
