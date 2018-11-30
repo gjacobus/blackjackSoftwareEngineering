@@ -59,11 +59,14 @@ public class ServerGUI extends JFrame
 		  for (int i = 0; i < labels.length; i++) {
 			  JLabel label = new JLabel(labels[i]);
 			  textFields[i] = new JTextField("", 10);
-
+			  //textFields[i].setEditable(false);
+			  
 			  textFieldsPanel.add(label);
 			  textFieldsPanel.add(textFields[i]);
 		  
 		  }
+		  textFields[0].setText("12345");
+		  textFields[1].setText("500");
 		  
 		  JPanel textAreas = new JPanel(new BorderLayout());
 		  textAreas.setBorder(BorderFactory.createEmptyBorder(70, 0, 0, 0));
@@ -110,6 +113,12 @@ public class ServerGUI extends JFrame
 		  
 		  server.setLog(log);
 		  server.setStatus(status);
+		  try {
+			server.listen();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

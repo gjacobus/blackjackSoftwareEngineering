@@ -1,26 +1,24 @@
 INDEX VERSION 1.130+C:\Users\riovi\Documents\School\SeniorYear\SoftwareEngineering\BlackjackHolder\blackjackSoftwareEngineering\blackjackTeamWorkspace\.metadata\.plugins\org.eclipse.jdt.core
-4155260034.index
+582872082.index
+1721354889.index
+2125071999.index
+503605182.index
+4054038625.index
 2668948516.index
-607522861.index
-48305292.index
-1223396850.index
+2492604015.index
 1220308574.index
 2762649813.index
 362242403.index
 648506100.index
-582872082.index
 306780836.index
-2125071999.index
-2492604015.index
-3244853415.index
-1721354889.index
-503605182.index
-4054038625.index
+4155260034.index
+3233782087.index
+607522861.index
+48305292.index
 2978330599.index
 636016986.index
+1223396850.index
 4213348864.index
-<<<<<<< HEAD
-1896765531.index
-=======
->>>>>>> master
+3244853415.index
 2538215463.index
+1896765531.index
