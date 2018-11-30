@@ -19,7 +19,7 @@ public class GameControl implements ActionListener
 	// Private data fields for the container and chat client.
 	  private JPanel container;
 	  private GameClient game;
-	  private int currentChair;
+	  private int currentChair = 0;
 	  private int dealerSecondCard = 0;
 	  private String dealerSecondCardPath = "";
 	  private boolean canPlay = false;
@@ -279,17 +279,19 @@ public class GameControl implements ActionListener
 				  gamePanel.updateDealerScore(dealerSecondCard + dealerScore);
 				  System.out.println("dealerSecondCard Score:" + dealerSecondCard);
 			  }
+			  String dealerNew[] = gamePanel.getDealerScore().split(":");
+			  dealerScore = Integer.parseInt(dealerNew[1].trim());
 			  
 			  if(dealerScore == 21 && !extraDealerCard)
 			  {
 				  try {
 					game.sendToServer("DealerDone");
+					return;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			  }
-			  extraDealerCard = true;
 			  if(dealerScore>= 17)
 			  {
 				  try {
@@ -300,6 +302,7 @@ public class GameControl implements ActionListener
 					e.printStackTrace();
 				}
 			  }
+			  extraDealerCard = true;
 			  
 			  
 			  System.out.println(message);
@@ -415,11 +418,11 @@ public class GameControl implements ActionListener
 		  }
 		  else
 		  {
-			  if(!extraDealerCard && !blackJack)
+			  if(dealerScore == 21 && !extraDealerCard && !blackJack)
 			  {
 				  displayError("You Lost, the dealer got BlackJack, you lose $" + betAmount);
 				  try {
-					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * -1));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
