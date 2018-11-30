@@ -234,6 +234,12 @@ public class GamePanel extends JPanel
 		  this.repaint();
 	  }
 	  
+	  public void removeDealerFlipCard()
+	  {
+		  dealerCards.remove(3);
+		  this.repaint();
+	  }
+	  
 	  public void updateUserScore(int score)
 	  {
 		  userScore.setText("Current Score: " + score);

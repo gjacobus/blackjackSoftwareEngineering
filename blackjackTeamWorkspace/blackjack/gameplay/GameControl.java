@@ -20,6 +20,8 @@ public class GameControl implements ActionListener
 	  private JPanel container;
 	  private GameClient game;
 	  private int currentChair;
+	  private int dealerSecondCard = 0;
+	  private String dealerSecondCardPath = "";
 	  private boolean canPlay = false;
 	  private boolean busted = false;
 	  private boolean dealerInitial = true;
@@ -265,9 +267,18 @@ public class GameControl implements ActionListener
 		  }
 		  else if(message.contains("DealerMove"))
 		  {
+			  
 			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 			  String dealer[] = gamePanel.getDealerScore().split(":");
 			  int dealerScore = Integer.parseInt(dealer[1].trim());
+			  if(!dealerInitial)
+			  {
+				  dealerInitial = true;
+				  gamePanel.removeDealerFlipCard();
+				  gamePanel.addDealerCards(dealerSecondCardPath);
+				  gamePanel.updateDealerScore(dealerSecondCard + dealerScore);
+				  System.out.println("dealerSecondCard Score:" + dealerSecondCard);
+			  }
 			  
 			  if(dealerScore == 21 && !extraDealerCard)
 			  {
@@ -492,9 +503,9 @@ public class GameControl implements ActionListener
 		  }
 		  cardNum = cardNum % 13 + 1;
 		  String num = Integer.toString(cardNum);
-		  cardPath += num + type + ".png";
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
-		  gamePanel.addDealerCards(cardPath);
+		  cardPath += num + type + ".png";
+		  dealerSecondCardPath = cardPath;
 		  String tempScore = gamePanel.getDealerScore();
 		  String[] array = tempScore.split(":");
 		  int newScore = Integer.parseInt(array[1].trim());
@@ -514,8 +525,19 @@ public class GameControl implements ActionListener
 				  cardNum = 11;
 			  }
 		  }
-		  newScore += cardNum;
-		  gamePanel.updateDealerScore(newScore);	
+		  if(dealerInitial)
+		  {
+			  gamePanel.addDealerCards(cardPath);
+			  newScore += cardNum;
+			  gamePanel.updateDealerScore(newScore);  
+		  }	
+		  else
+		  {
+			  dealerSecondCard = cardNum;
+			  gamePanel.addDealerCards("/Card_Images/blue_back.png");
+			  newScore += 0;
+			  gamePanel.updateDealerScore(newScore); 
+		  }
 		  
 		  if(dealerInitial)
 		  {
