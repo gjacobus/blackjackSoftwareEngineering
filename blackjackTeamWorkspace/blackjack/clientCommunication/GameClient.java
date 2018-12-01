@@ -180,7 +180,6 @@ public class GameClient extends AbstractClient
 		else if(message.contains("canPlay"))
 		{
 			gc.canPlay(true);
-			chairNum = 0;
 		}
 		else if(message.contains("DealerMove"))
 		{

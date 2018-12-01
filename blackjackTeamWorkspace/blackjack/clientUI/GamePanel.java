@@ -9,7 +9,6 @@ import gameplay.GameControl;
 public class GamePanel extends JPanel
 {	
 	// Private data fields for the important GUI components.
-	  private JTextField usernameField;
 	  private JLabel errorLabel;
 	  private Color background = new Color(10, 100, 35);
 	  private JPanel dealerCards = new JPanel();
@@ -24,11 +23,35 @@ public class GamePanel extends JPanel
 	  private JLabel betAmt;
 	  private JLabel balance;
 	  private JPanel box;
+	  private JLabel name1;
+	  private JLabel name2;
+	  private JLabel name3;
+	  private JLabel name4;
 	  
-	  // Getter for the text in the username field.
-	  public String getUsername()
+	  public void updateNames(String names)
 	  {
-	    return usernameField.getText();
+		  String temp[] = names.split(",");
+		  
+		  if(temp.length >= 1)
+		  {
+			  name1.setText(temp[0]);
+		  }
+		  
+		  if(temp.length >= 2)
+		  {
+			  name2.setText(temp[1]);
+		  }
+		  
+		  if(temp.length >= 3)
+		  {
+			  name3.setText(temp[2]);
+		  }
+		  
+		  if(temp.length >= 4)
+		  {
+			  name4.setText(temp[3]);
+		  }
+		  
 	  }
 	  
 	  public void setBalance(double balance)
@@ -100,13 +123,13 @@ public class GamePanel extends JPanel
 	    
 	    JPanel namePanel = new JPanel(new GridLayout(1, 4, 70, 10));
 	    namePanel.setBackground(background);
-	    JLabel name1 = new JLabel("User1");
+	    name1 = new JLabel("User1");
 	    name1.setForeground(Color.YELLOW);
-	    JLabel name2 = new JLabel("User2");
+	    name2 = new JLabel("User2");
 	    name2.setForeground(Color.YELLOW);
-	    JLabel name3 = new JLabel("User3");
+	    name3 = new JLabel("User3");
 	    name3.setForeground(Color.YELLOW);
-	    JLabel name4 = new JLabel("User4");
+	    name4 = new JLabel("User4");
 	    name4.setForeground(Color.YELLOW);
 	    namePanel.add(name1);
 	    namePanel.add(name2);
@@ -275,6 +298,10 @@ public class GamePanel extends JPanel
 	  {
 		  userScore.setText("Current Score: 0");
 		  dealerScore.setText("DealerScore: 0");
+		  name1.setText("user1");
+		  name2.setText("user2");
+		  name3.setText("user3");
+		  name4.setText("user4");
 		  setError("");
 	  }
 	  
@@ -283,6 +310,11 @@ public class GamePanel extends JPanel
 		  resetText();
 		  resetUserCards();
 		  resetDealerCards();
+		  this.repaint();
+	  }
+	  
+	  public void updateGame()
+	  {
 		  this.repaint();
 	  }
 }

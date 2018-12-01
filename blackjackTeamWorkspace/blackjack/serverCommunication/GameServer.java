@@ -24,6 +24,7 @@ public class GameServer extends AbstractServer
 	private ArrayList<Integer> deck = new ArrayList<Integer>();
 	private int currentNum = 0;
 	private ArrayList<String> names = new ArrayList<String>();
+	private ArrayList<ConnectionToClient> clients = new ArrayList<ConnectionToClient>();
 	private int currentChair = 0;
 	private int timerCheck = 1;
 	private int cardNum = 0;
@@ -103,6 +104,46 @@ public class GameServer extends AbstractServer
 			return false;
 		}
 	}
+	
+	private Boolean addClient(ConnectionToClient client)
+	{
+		if(clients.size() <= 3)
+		{
+			if(!clients.contains(client))
+			{
+				clients.add(client);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	private Boolean removeClient(ConnectionToClient client)
+	{
+		if(clients.size() >= 0)
+		{
+			if(clients.contains(client))
+			{
+				clients.remove(client);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 	@Override
 	protected void handleMessageFromClient(Object arg0, ConnectionToClient arg1)
@@ -116,8 +157,7 @@ public class GameServer extends AbstractServer
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println(arg0.toString());
-		System.out.println("namesArray: " + names.toString());
+		System.out.println(arg0.toString() + " thread name:" + arg1.getName());
 		if (arg0 instanceof LoginData)
 		{
 			LoginData loginData = (LoginData) arg0;
@@ -127,16 +167,14 @@ public class GameServer extends AbstractServer
 			{
 				if (database.getDataByUsername(loginData.getUsername()).equals("user not found"))
 				{
-					System.out.println("usernamerNotFound");
+					System.out.println("usernameNotFound");
 					arg1.sendToClient("Invalid username");
 				} else if (!database.getUserPassword(loginData.getUsername()).equals(loginData.getPassword()))
 				{
-					System.out.println("passwordFake");
 					arg1.sendToClient("Invalid password");
 				}
 				else 
 				{
-					System.out.println("Good");
 					arg1.sendToClient("Balance: " + database.getUserBalance(loginData.getUsername()));
 					arg1.sendToClient("Login success," + loginData.getUsername());
 				}
@@ -185,6 +223,7 @@ public class GameServer extends AbstractServer
 			{
 				currentChair++;
 				timerCheck++;
+				addClient(arg1);
 				try {
 					arg1.sendToClient("updateBet");
 				} catch (IOException e1) {
@@ -233,11 +272,14 @@ public class GameServer extends AbstractServer
 			timerCheck++;
 			if(timerCheck >= names.size() + 1)
 			{
+				if(!gameStarted)
+				{
 				currentChair = 0;
 				//TODO maybe who knows
 				gameStarted = true;
 				this.notifyAll();
 				this.sendToAllClients("GameStart");
+				}
 			}
 		}
 		else if(arg0.toString().contains("updateNames"))
@@ -259,14 +301,36 @@ public class GameServer extends AbstractServer
 				currentChair++;
 				cardNum = 0;
 				this.sendToAllClients("chairIncrease");
+				try {
+					clients.get(currentChair - 1).sendToClient("Stay");
+					System.out.println((currentChair >= clients.size()) + " client.size");
+					if(currentChair >= clients.size())
+					{
+						clients.get(0).sendToClient("canPlay");
+					}
+					else
+					{
+						clients.get(currentChair).sendToClient("canPlay");
+						cardNum++;
+						int temp = nextCard();
+						this.sendToAllClients(("initialCards=" + temp));
+						return;
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			else
 			{
 				int temp = nextCard();
 				this.sendToAllClients("initialCards=" + temp);
 			}
+			
+			System.out.println((currentChair >= clients.size()) + " names.size");
 			if(currentChair >= names.size())
 			{
+				currentChair = 0;
 				int temp = nextCard();
 				this.sendToAllClients("dealerInitial=" + temp);
 			}
@@ -277,6 +341,12 @@ public class GameServer extends AbstractServer
 			this.sendToAllClients("dealerInitial=" + temp);
 			currentChair = 0;
 			this.sendToAllClients("dealerDone");
+			try {
+				clients.get(0).sendToClient("canPlay");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(arg0.toString().equals("nextCard"))
 		{
@@ -285,7 +355,7 @@ public class GameServer extends AbstractServer
 		}
 		else if(arg0.toString().contains("Stay"))
 		{
-			//TODO currentScore needs to be calculated based on username and the cards underneath
+			
 			currentChair += 1;
 			this.sendToAllClients("chairIncrease");
 			try {
@@ -293,8 +363,13 @@ public class GameServer extends AbstractServer
 				{
 					int temp = nextCard();
 					this.sendToAllClients("DealerMove=" + temp);
+					return;
 				}
 				arg1.sendToClient("Stay");
+				if(currentChair < clients.size())
+				{
+					clients.get(currentChair).sendToClient("canPlay");
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -321,7 +396,7 @@ public class GameServer extends AbstractServer
 			System.out.println(names.toString());
 			if(names.removeAll(names))
 			{
-				System.out.println(names.toString());
+				clients.removeAll(clients);
 				System.out.println("Game Reset");
 			}
 		}
@@ -331,13 +406,9 @@ public class GameServer extends AbstractServer
 			String username = temp[1];
 			String betAmount = temp[2];
 			
-			System.out.println(username);
-			System.out.println(betAmount);
 			try {
 				ArrayList<String> res = database.query("select balance from BlackJackData where username='" + username + "'");
-				System.out.println(res);
 				Double newBalance = Double.parseDouble(res.get(0)) + Double.parseDouble(betAmount);
-				System.out.println(newBalance);
 				database.executeDML("update blackjackdata set balance = '" + newBalance + "' where username='" + username + "'");
 				try {
 					
