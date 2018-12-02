@@ -11,6 +11,8 @@ import gameplay.BetControl;
 import gameplay.GameControl;
 
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.IOException;
 
 public class ClientGUI extends JFrame
@@ -51,6 +53,12 @@ public class ClientGUI extends JFrame
     JPanel view5 = new BetPanel(bc);
     JPanel view6 = new GamePanel(gc);
     
+    view2.addComponentListener(new ResizeFrame(container, 550, 350));
+    view3.addComponentListener(new ResizeFrame(container, 550, 350));
+    view4.addComponentListener(new ResizeFrame(container, 475, 600));
+    view5.addComponentListener(new ResizeFrame(container, 600, 400));
+    view6.addComponentListener(new ResizeFrame(container, 800, 750));
+    
     
     // Add the views to the card layout container.
     container.add(view1, "1");
@@ -59,6 +67,7 @@ public class ClientGUI extends JFrame
     container.add(view4, "4");
     container.add(view5, "5");
     container.add(view6, "6");
+    
     
     sgc.updateBalance();
     sgc.updateUsername();
@@ -71,9 +80,51 @@ public class ClientGUI extends JFrame
     this.add(container, BorderLayout.CENTER);
 
     // Show the JFrame.
-    this.setSize(1250, 750);
+    this.setSize(550, 350);
     this.setVisible(true);
+    
+    
   }
+  
+  public class ResizeFrame implements ComponentListener {
+	  private JPanel container;
+	  int width;
+	  int height;
+	  
+	  public ResizeFrame(JPanel container, int width, int height) {
+		  super();
+		  this.container = container;
+		  this.width = width;
+		  this.height = height;
+	  }
+
+		@Override
+		public void componentResized(ComponentEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void componentMoved(ComponentEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void componentShown(ComponentEvent e) {
+			JFrame frame = (JFrame) SwingUtilities.windowForComponent(container);
+			frame.setSize(width, height);
+			
+		}
+
+		@Override
+		public void componentHidden(ComponentEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+  	
+  }
+  
 
   // Main function that creates the client GUI when the program is started.
   public static void main(String[] args)

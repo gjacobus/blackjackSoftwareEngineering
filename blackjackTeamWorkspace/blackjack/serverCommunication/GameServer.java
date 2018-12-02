@@ -194,7 +194,8 @@ public class GameServer extends AbstractServer
 				if (database.getDataByUsername(createAccountData.getUsername()).equals("username not found"))
 				{
 					database.addData(createAccountData.getUsername() + "," + createAccountData.getPassword());
-					arg1.sendToClient("Create account success");
+					arg1.sendToClient("Balance: " + database.getUserBalance(createAccountData.getUsername()));
+					arg1.sendToClient("Create account success," + createAccountData.getUsername());
 				} else
 				{
 					arg1.sendToClient("Username already exists");

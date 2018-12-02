@@ -206,6 +206,7 @@ public class GamePanel extends JPanel
 	  {
 		  JLabel newJLabel = new JLabel("", new ImageIcon(this.getClass().getResource(cardPath)), JLabel.CENTER);
 		  dealerCards.add(newJLabel);
+		  this.revalidate();
 		  this.repaint();
 	  }
 	  

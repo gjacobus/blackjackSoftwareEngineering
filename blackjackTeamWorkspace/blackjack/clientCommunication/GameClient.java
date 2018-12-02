@@ -92,6 +92,15 @@ public class GameClient extends AbstractClient
 			break;
 		}
 		
+		if (message.contains("Create account success")) {
+			String temp[] = message.split(",");
+			this.setUsername(temp[1]);
+			sgc.updateBalance();
+			sgc.updateUsername();
+			bc.updateBalance();
+			cac.createAccountSuccess();
+		}
+		
 		if(message.contains("Login success"))
 		{
 			String temp[] = message.split(",");
