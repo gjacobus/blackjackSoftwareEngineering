@@ -294,6 +294,7 @@ public class GameControl implements ActionListener
 			  String dealerNew[] = gamePanel.getDealerScore().split(":");
 			  dealerScore = Integer.parseInt(dealerNew[1].trim());
 			  
+			  System.out.println(dealerScore);
 			  if(dealerScore == 21 && !extraDealerCard)
 			  {
 				  System.out.println("DealerDone");
@@ -480,7 +481,7 @@ public class GameControl implements ActionListener
 			  {
 				  displayError("You Won, the dealer busted, you win double $" + betAmount);
 				  try {
-					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 1));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -510,7 +511,7 @@ public class GameControl implements ActionListener
 			  {
 				  displayError("You Won, you win double $" + betAmount);
 				  try {
-					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 1));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
