@@ -108,6 +108,9 @@ public class BetPanel extends JPanel {
 		btnAddMoney.addActionListener(bc);
 		btnAddMoney.setBounds(200, 260, 150, 23);
 		add(btnAddMoney);
+		
+//		JLabel timerLabel = new JLabel("Timer: ");
+//		add(timerLabel);
 	}
 
 	public double getBet() {

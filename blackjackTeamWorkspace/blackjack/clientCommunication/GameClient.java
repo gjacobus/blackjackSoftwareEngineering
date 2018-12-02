@@ -130,6 +130,7 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("wait"))
 		{
+			bc.displayWaitingMessage();
 			try {
 				Thread.sleep(1500);
 			} catch (InterruptedException e) {

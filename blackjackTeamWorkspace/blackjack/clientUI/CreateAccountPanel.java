@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import clientCommunication.CreateAccountControl;
 
@@ -81,6 +81,7 @@ public class CreateAccountPanel extends JPanel
 		    grid.add(loginPanel);
 		    grid.add(buttonPanel);
 		    this.add(grid);
+		    
 	  }
 
 	public String getVerifyPassword()

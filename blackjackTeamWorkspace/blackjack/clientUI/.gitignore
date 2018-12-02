@@ -15,3 +15,5 @@
 /BetPanel$6.class
 /ClientGUI$1ResizeFrame.class
 /ClientGUI$ResizeFrame.class
+/InitialPanel$AListener.class
+/InitialPanel$ClockListener.class

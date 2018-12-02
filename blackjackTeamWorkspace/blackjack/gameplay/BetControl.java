@@ -113,6 +113,11 @@ public class BetControl implements ActionListener{
 		betPanel.displayError("Error:" + message);
 	}
 	
+	public void displayWaitingMessage() {
+		BetPanel betPanel = (BetPanel)container.getComponent(4); 
+		betPanel.displayError("Waiting for other players...");
+	}
+	
 	public double getBalance() {
 		return client.getBalance();
 	}
