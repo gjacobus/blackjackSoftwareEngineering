@@ -36,6 +36,7 @@ public class GameControl implements ActionListener
 	  private boolean dealerace2 = false;
 	  private boolean dealerace3 = false;
 	  private boolean dealerace4 = false;
+	  private int initialCards = 0;
 	  
 	  
 	  // Constructor for the Game controller.
@@ -100,26 +101,33 @@ public class GameControl implements ActionListener
 		  gamePanel.updateDealerScore(0);
 		  gamePanel.updateUserScore(0);
 		  
-		  try {
-			game.sendToServer("initialCards");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  }
-	  
-	  public void updateGame(String message)
-	  {
-		  
-		  if(blackJack)
+		  if(canPlay)
 		  {
 			  try {
-				game.sendToServer("Stay" + currentChair);
+				game.sendToServer("initialCards");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			  return;
+		  }
+	  }
+	  
+	  public void updateGame(String message)
+	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.updateGame();
+		  if(blackJack)
+		  {
+			  if(canPlay)
+			  {
+				  try {
+					game.sendToServer("Stay" + currentChair);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				  return;
+			  }
 		  }
 		  String[] temp = message.split("=");
 		  if(message.contains("initialCards"))
@@ -146,8 +154,8 @@ public class GameControl implements ActionListener
 			  cardNum = cardNum % 13 + 1;
 			  String num = Integer.toString(cardNum);
 			  cardPath += num + type + ".png";
-			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
-			  gamePanel.addUserCards(currentChair, cardPath);
+			  gamePanel.addUserCards(currentChair, cardPath);  
+			  initialCards++;
 			  if(canPlay)
 			  {
 				  String tempScore = gamePanel.getUserScore();
@@ -175,13 +183,13 @@ public class GameControl implements ActionListener
 				  {
 					  blackJack = true;
 				  }
+				  try {
+					game.sendToServer("initialCards");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			  }
-			  try {
-				game.sendToServer("initialCards");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		  }
 		  else if(message.contains("nextCard"))
 		  {
@@ -207,7 +215,6 @@ public class GameControl implements ActionListener
 			  cardNum = cardNum % 13 + 1;
 			  String num = Integer.toString(cardNum);
 			  cardPath += num + type + ".png";
-			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 			  gamePanel.addUserCards(currentChair, cardPath);
 			  if(canPlay)
 			  {
@@ -243,32 +250,37 @@ public class GameControl implements ActionListener
 				  gamePanel.updateUserScore(newScore);
 				  if(newScore == 21)
 				  {
-					  this.canPlay = false;
-					  try {
-						game.sendToServer("Stay" + currentChair);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				  }
-				  else if(newScore > 21)
-				  {
-					  gamePanel.setError("You Busted");
-					  this.canPlay = false;
-					  this.busted = true;
-				    	try {
+					  if(canPlay)
+					  {
+						  this.canPlay = false;
+						  try {
 							game.sendToServer("Stay" + currentChair);
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					  }
+				  }
+				  else if(newScore > 21)
+				  {
+					  if(canPlay)
+					  {
+						  gamePanel.setError("You Busted");
+						  this.canPlay = false;
+						  this.busted = true;
+					    	try {
+								game.sendToServer("Stay" + currentChair);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					  }
 				  }
 			  }
 		  }
 		  else if(message.contains("DealerMove"))
 		  {
-			  
-			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+			  System.out.println(canPlay);
 			  String dealer[] = gamePanel.getDealerScore().split(":");
 			  int dealerScore = Integer.parseInt(dealer[1].trim());
 			  if(!dealerInitial)
@@ -282,25 +294,36 @@ public class GameControl implements ActionListener
 			  String dealerNew[] = gamePanel.getDealerScore().split(":");
 			  dealerScore = Integer.parseInt(dealerNew[1].trim());
 			  
+			  System.out.println(dealerScore);
 			  if(dealerScore == 21 && !extraDealerCard)
 			  {
-				  try {
-					game.sendToServer("DealerDone");
-					return;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				  System.out.println("DealerDone");
+				  System.out.println(canPlay);
+				  if(canPlay)
+				  {
+					  try {
+						game.sendToServer("DealerDone");
+						return;
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				  }
 			  }
 			  if(dealerScore>= 17)
 			  {
-				  try {
-					game.sendToServer("DealerDone");
-					return;
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				  System.out.println("DealerDone");
+				  System.out.println(canPlay);
+				  if(canPlay)
+				  {
+					  try {
+						game.sendToServer("DealerDone");
+						return;
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				  }
 			  }
 			  extraDealerCard = true;
 			  
@@ -357,33 +380,48 @@ public class GameControl implements ActionListener
 			  
 			  newScore += cardNum;
 			  gamePanel.updateDealerScore(newScore);
+			  System.out.println(newScore);
 			  if(newScore > 21)
 			  {
 				  gamePanel.setError("Dealer Busted");
+				  System.out.println(canPlay);
+				  if(canPlay)
+				  {
 			    	try {
 						game.sendToServer("DealerDone");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				  }
 			  }
 			  else if(newScore <= 16)
 			  {
-				  try {
-					game.sendToServer("DealerMove");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				  if(canPlay)
+				  {
+					  try {
+						game.sendToServer("DealerMove");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				  }
 			  }
 			  else if(newScore >= 17)
 			  {
-				  try {
-					game.sendToServer("DealerDone");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				  
+				  System.out.println(canPlay);
+				  if(canPlay)
+				  {
+					  try {
+						  System.out.println("DealerDone >=17");
+						game.sendToServer("DealerDone");
+						System.out.println("Post dealerDone");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				  }
 			  }
 			 
 		  }
@@ -394,6 +432,7 @@ public class GameControl implements ActionListener
 	  public void checkResults()
 	  {
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.updateGame();
 		  String dealer = gamePanel.getDealerScore();
 		  String[] array = dealer.split(":");
 		  int dealerScore = Integer.parseInt(array[1].trim());
@@ -442,7 +481,7 @@ public class GameControl implements ActionListener
 			  {
 				  displayError("You Won, the dealer busted, you win double $" + betAmount);
 				  try {
-					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 1));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -472,7 +511,7 @@ public class GameControl implements ActionListener
 			  {
 				  displayError("You Won, you win double $" + betAmount);
 				  try {
-					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 2));
+					game.sendToServer("updateBalance," + game.getUsername() + "," + (game.getBetAmount() * 1));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -483,6 +522,8 @@ public class GameControl implements ActionListener
 	  
 	  public void dealerInitial(String message)
 	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.updateGame();
 		  String[] temp = message.split("=");
 		  System.out.println(message);
 		  String cardPath = "/Card_Images/";
@@ -506,7 +547,6 @@ public class GameControl implements ActionListener
 		  }
 		  cardNum = cardNum % 13 + 1;
 		  String num = Integer.toString(cardNum);
-		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  cardPath += num + type + ".png";
 		  dealerSecondCardPath = cardPath;
 		  String tempScore = gamePanel.getDealerScore();
@@ -545,24 +585,29 @@ public class GameControl implements ActionListener
 		  if(dealerInitial)
 		  {
 			  dealerInitial = false;
-			  try {
-				game.sendToServer("dealerInitial");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			  if(canPlay)
+			  {
+				  try {
+					game.sendToServer("dealerInitial");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			  }
 		  }
 	  }
 	  
 	  public void resetGame()
 	  {
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  gamePanel.updateGame();
 		  gamePanel.resetGame();
 		  dealerInitial = true;
 		  busted = false;
 		  extraDealerCard = false;
 		  extraUserCard = false;
 		  blackJack = false;
+		  dealerSecondCardPath = "";
 		  userAceFalse();
 		  userAceFalse();
 		  userAceFalse();
@@ -688,6 +733,18 @@ public class GameControl implements ActionListener
 	  {
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  gamePanel.setBalance(balance);
+	  }
+	  
+	  public void updateNames(String names)
+	  {
+		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+		  String temp[] = names.split(",");
+		  String namesFull = "";
+		  for(int i = 0; i < temp.length; i++)
+		  {
+			  namesFull += temp[i] + ",";
+		  }
+		  gamePanel.updateNames(namesFull.replaceAll("\\[|\\]", ""));
 	  }
 }
 

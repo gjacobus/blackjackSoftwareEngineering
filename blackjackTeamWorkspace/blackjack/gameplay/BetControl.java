@@ -13,6 +13,7 @@ import clientUI.CreateAccountPanel;
 public class BetControl implements ActionListener{
 	private GameClient client;
 	private JPanel container;
+	private boolean betUpdate;
 	
 	public BetControl(JPanel container, GameClient client) {
 		this.client = client;
@@ -73,6 +74,7 @@ public class BetControl implements ActionListener{
 			break;
 		case "Add Money":
 			try {
+				betUpdate = true;
 				client.sendToServer("addMoney=" + client.getUsername());
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -95,6 +97,11 @@ public class BetControl implements ActionListener{
 	
 	public void resetBet()
 	{
+		if(betUpdate)
+		{
+			betUpdate = false;
+			return;
+		}
 		BetPanel betPanel = (BetPanel)container.getComponent(4); 
 		JTextField betTextField = betPanel.getBetTextField();
 		betTextField.setText("$0.0");
