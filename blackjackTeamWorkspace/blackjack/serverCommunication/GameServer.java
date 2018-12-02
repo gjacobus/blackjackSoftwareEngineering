@@ -153,7 +153,7 @@ public class GameServer extends AbstractServer
 			CreateAccountData createAccountData = (CreateAccountData) arg0;
 			try
 			{
-				if (database.getDataByUsername(createAccountData.getUsername()).equals("user not found"))
+				if (database.getDataByUsername(createAccountData.getUsername()).equals("username not found"))
 				{
 					database.addData(createAccountData.getUsername() + "," + createAccountData.getPassword());
 					arg1.sendToClient("Create account success");

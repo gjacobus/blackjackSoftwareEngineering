@@ -147,7 +147,7 @@ public class Database
 	{
 		String[] dataArray = data.split(",");
 
-		String stmt = "insert into blackjackdata values('" + dataArray[0] + "', " + encryptPassword(dataArray[1]) + "','50')";
+		String stmt = "insert into blackjackdata values('" + dataArray[0] + "', " + encryptPassword(dataArray[1]) + ",50)";
 
 		try
 		{

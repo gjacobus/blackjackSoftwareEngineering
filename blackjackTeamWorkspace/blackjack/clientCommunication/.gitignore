@@ -5,3 +5,6 @@
 /LoginControl.class
 /LoginData.class
 /StartGameControl.class
+/TestCreateAccount.class
+/TestClientServerConnection.class
+/TestClientServer.class
