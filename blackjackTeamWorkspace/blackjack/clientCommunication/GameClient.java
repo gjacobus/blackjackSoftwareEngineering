@@ -21,6 +21,7 @@ public class GameClient extends AbstractClient
 	private BetControl bc;
 	private int chairNum = 0;
 	private boolean checkOne = true;
+	private boolean watchHand = false;
 
 	public GameClient()
 	{
@@ -116,6 +117,7 @@ public class GameClient extends AbstractClient
 		else if(message.toString().equals("gameInProgress"))
 		{
 			bc.displayError("Game in progress, try again in 30 sec");
+			watchHand = true;
 		}
 		else if(message.contains("fullGame"))
 		{
@@ -174,7 +176,7 @@ public class GameClient extends AbstractClient
 		{
 			gc.dealerInitial(message);
 		}
-		else if(message.contains("dealerDone"))
+		else if(message.contains("DealerDone"))
 		{
 			System.out.println(message);
 			gc.chairReset();
@@ -191,6 +193,10 @@ public class GameClient extends AbstractClient
 		else if(message.contains("canPlay"))
 		{
 			gc.canPlay(true);
+		}
+		else if(message.contains("checkScore"))
+		{
+			gc.checkScore();
 		}
 		else if(message.contains("DealerMove"))
 		{
@@ -233,8 +239,14 @@ public class GameClient extends AbstractClient
 		{
 			checkOne = true;
 			gc.chairReset();
+			watchHand = false;
 		}
 
+	}
+	
+	public Boolean getWatchHand()
+	{
+		return watchHand;
 	}
 
 	public void connectionException(Throwable exception)

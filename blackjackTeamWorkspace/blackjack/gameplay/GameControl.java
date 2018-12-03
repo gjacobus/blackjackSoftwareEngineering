@@ -299,12 +299,15 @@ public class GameControl implements ActionListener
 			  {
 				  System.out.println("DealerDone");
 				  System.out.println(canPlay);
+				  if(canPlay)
+				  {
 					  try {
 						game.sendToServer("DealerDone");
 						return;
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					}
 				  }
 			  }
 			  if(dealerScore>= 17)
@@ -320,6 +323,10 @@ public class GameControl implements ActionListener
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				  }
+				  else
+				  {
+					  return;
 				  }
 			  }
 			  extraDealerCard = true;
@@ -413,7 +420,6 @@ public class GameControl implements ActionListener
 					  try {
 						  System.out.println("DealerDone >=17");
 						game.sendToServer("DealerDone");
-						System.out.println("Post dealerDone");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -428,6 +434,10 @@ public class GameControl implements ActionListener
 	  
 	  public void checkResults()
 	  {
+		  if(game.getWatchHand())
+		  {
+			  return;
+		  }
 		  GamePanel gamePanel = (GamePanel) container.getComponent(5);
 		  gamePanel.updateGame();
 		  String dealer = gamePanel.getDealerScore();

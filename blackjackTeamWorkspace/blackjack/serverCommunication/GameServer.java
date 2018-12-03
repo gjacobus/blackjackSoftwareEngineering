@@ -307,6 +307,8 @@ public class GameServer extends AbstractServer
 					System.out.println((currentChair >= clients.size()) + " client.size");
 					if(currentChair >= clients.size())
 					{
+						this.sendToAllClients("Stay");
+						this.sendToAllClients("gameReset");
 						clients.get(0).sendToClient("canPlay");
 					}
 					else
@@ -344,6 +346,7 @@ public class GameServer extends AbstractServer
 			this.sendToAllClients("dealerDone");
 			try {
 				clients.get(0).sendToClient("canPlay");
+				clients.get(0).sendToClient("checkScore");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -361,6 +364,7 @@ public class GameServer extends AbstractServer
 			try {
 				if(arg0.equals("Stay" + (names.size() - 1)))
 				{
+					this.sendToAllClients("Stay");
 					clients.get(0).sendToClient("canPlay");
 					int temp = nextCard();
 					this.sendToAllClients("DealerMove=" + temp);
@@ -370,6 +374,7 @@ public class GameServer extends AbstractServer
 				if(currentChair < clients.size())
 				{
 					clients.get(currentChair).sendToClient("canPlay");
+					clients.get(currentChair).sendToClient("checkScore");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -385,11 +390,12 @@ public class GameServer extends AbstractServer
 		{
 			System.out.println("Checkum");
 			try {
-				arg1.sendToClient("CheckResults");
-			} catch (IOException e) {
+				this.wait(5000);
+			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			this.sendToAllClients("CheckResults");
 		}
 		else if(arg0.toString().equals("resetGame"))
 		{
