@@ -1,0 +1,58 @@
+package finalproject;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.JSeparator;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
+
+public class StartGame extends JPanel {
+	public StartGame()
+	{
+			setLayout(null);
+		
+			JPanel inner = new JPanel( );
+			inner.setBounds(24, 14, 1, 1);
+			
+			inner.setLayout(null);
+			this.add(inner);
+			
+			JButton btnStartGame = new JButton("Start Game");
+			btnStartGame.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					
+				}
+			});
+			btnStartGame.setBounds(187, 222, 88, 23);
+			add(btnStartGame);
+			
+			JTextPane textPane = new JTextPane();
+			textPane.setBounds(187, 105, 88, 20);
+			add(textPane);
+			
+			JTextPane textPane_1 = new JTextPane();
+			textPane_1.setBounds(187, 161, 88, 20);
+			add(textPane_1);
+			
+			JLabel lblUsername = new JLabel("Username");
+			lblUsername.setBounds(207, 80, 88, 14);
+			add(lblUsername);
+			
+			JLabel lblBalance = new JLabel("Balance");
+			lblBalance.setBounds(207, 136, 68, 14);
+			add(lblBalance);
+	}
+			public static void main(String[] args)
+			  {
+			    new StartGame();
+			  }
+	}
+
