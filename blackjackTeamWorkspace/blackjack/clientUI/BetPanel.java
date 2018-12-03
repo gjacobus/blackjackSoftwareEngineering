@@ -124,7 +124,7 @@ public class BetPanel extends JPanel {
 		{
 			errorLabel.setVisible(false);
 		}
-		else if(message.contains("Waiting"))
+		else if(message.contains("Waiting") || message.contains("Hurry"))
 		{
 			errorLabel.setVisible(true);
 			errorLabel.setText(message);

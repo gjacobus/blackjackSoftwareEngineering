@@ -235,6 +235,7 @@ public class GameServer extends AbstractServer
 				{
 					try {
 						arg1.sendToClient("canPlay");
+						this.sendToAllClients("hurry up and bet");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

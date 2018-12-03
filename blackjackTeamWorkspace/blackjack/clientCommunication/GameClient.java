@@ -22,6 +22,7 @@ public class GameClient extends AbstractClient
 	private int chairNum = 0;
 	private boolean checkOne = true;
 	private boolean watchHand = false;
+	private boolean hasPlacedBet = false;
 
 	public GameClient()
 	{
@@ -127,6 +128,7 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("updateBet"))
 		{
+			hasPlacedBet = true;
 			gc.updateBet();
 		}
 		else if(message.contains("chairNum"))
@@ -138,7 +140,7 @@ public class GameClient extends AbstractClient
 		{
 			bc.displayWaitingMessage();
 			try {
-				Thread.sleep(1500);
+				Thread.sleep(15000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -243,6 +245,10 @@ public class GameClient extends AbstractClient
 			checkOne = true;
 			gc.chairReset();
 			watchHand = false;
+			hasPlacedBet = false;
+		}
+		else if (message.contains("hurry up and bet") && !hasPlacedBet) {
+			bc.setTimerMessage();
 		}
 
 	}

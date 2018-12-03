@@ -122,5 +122,10 @@ public class BetControl implements ActionListener{
 		return client.getBalance();
 	}
 	
+	public void setTimerMessage() {
+		BetPanel betPanel = (BetPanel)container.getComponent(4); 
+		betPanel.displayError("Hurry up and bet");
+	}
+	
 	
 }

@@ -62,6 +62,7 @@ public class ClientGUI extends JFrame {
 		view4.addComponentListener(new ResizeFrame(container, 475, 600));
 		view5.addComponentListener(new ResizeFrame(container, 600, 400));
 		view6.addComponentListener(new ResizeFrame(container, 800, 750));
+		
 
 		// Add the views to the card layout container.
 		container.add(view1, "1");
@@ -70,19 +71,26 @@ public class ClientGUI extends JFrame {
 		container.add(view4, "4");
 		container.add(view5, "5");
 		container.add(view6, "6");
-
+		
 		sgc.updateBalance();
 		sgc.updateUsername();
 
 		// Show the initial view in the card layout.
 		cardLayout.show(container, "1");
+		
+		JScrollPane scrollPane = new JScrollPane(container);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setPreferredSize(new Dimension(800,750));
 
 		// Add the card layout container to the JFrame.
-		this.add(container, BorderLayout.CENTER);
+		this.add(scrollPane, BorderLayout.CENTER);
 
 		// Show the JFrame.
 		this.setSize(550, 350);
 		this.setVisible(true);
+	
+		
 
 	}
 
