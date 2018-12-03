@@ -20,6 +20,8 @@ public class GameClient extends AbstractClient
 	private double betAmount = 0.0;
 	private BetControl bc;
 	private int chairNum = 0;
+	private boolean checkOne = true;
+	private boolean watchHand = false;
 
 	public GameClient()
 	{
@@ -118,6 +120,7 @@ public class GameClient extends AbstractClient
 		else if(message.toString().equals("gameInProgress"))
 		{
 			bc.displayError("Game in progress, try again in 30 sec");
+			watchHand = true;
 		}
 		else if(message.contains("fullGame"))
 		{
@@ -149,6 +152,7 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("GameStart"))
 		{
+			bc.displayError("");
 			try {
 				this.sendToServer("updateNames");
 			} catch (IOException e) {
@@ -175,11 +179,10 @@ public class GameClient extends AbstractClient
 		{
 			gc.dealerInitial(message);
 		}
-		else if(message.contains("dealerDone"))
+		else if(message.contains("DealerDone"))
 		{
 			System.out.println(message);
 			gc.chairReset();
-			gc.checkScore();
 		}
 		else if(message.contains("nextCard"))
 		{
@@ -194,21 +197,29 @@ public class GameClient extends AbstractClient
 		{
 			gc.canPlay(true);
 		}
+		else if(message.contains("checkScore"))
+		{
+			gc.checkScore();
+		}
 		else if(message.contains("DealerMove"))
 		{
 			gc.updateGame(message);
 		}
 		else if(message.equals("CheckResults"))
 		{
-			gc.checkResults();
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(checkOne)
+			{
+				checkOne = false;
+				gc.checkResults();
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("Sleep");
+				gc.resetGame();
 			}
-			System.out.println("Sleep");
-			gc.resetGame();
 		}
 		else if(message.equals("chairIncrease"))
 		{
@@ -227,7 +238,18 @@ public class GameClient extends AbstractClient
 			bc.resetBet();
 			gc.setBalance(balance);
 		}
+		else if(message.contains("gameReset"))
+		{
+			checkOne = true;
+			gc.chairReset();
+			watchHand = false;
+		}
 
+	}
+	
+	public Boolean getWatchHand()
+	{
+		return watchHand;
 	}
 
 	public void connectionException(Throwable exception)
