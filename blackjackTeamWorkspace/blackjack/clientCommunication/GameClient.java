@@ -20,6 +20,7 @@ public class GameClient extends AbstractClient
 	private double betAmount = 0.0;
 	private BetControl bc;
 	private int chairNum = 0;
+	private boolean checkOne = true;
 
 	public GameClient()
 	{
@@ -146,6 +147,7 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.contains("GameStart"))
 		{
+			bc.displayError("");
 			try {
 				this.sendToServer("updateNames");
 			} catch (IOException e) {
@@ -176,7 +178,6 @@ public class GameClient extends AbstractClient
 		{
 			System.out.println(message);
 			gc.chairReset();
-			gc.checkScore();
 		}
 		else if(message.contains("nextCard"))
 		{
@@ -197,15 +198,19 @@ public class GameClient extends AbstractClient
 		}
 		else if(message.equals("CheckResults"))
 		{
-			gc.checkResults();
-			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if(checkOne)
+			{
+				checkOne = false;
+				gc.checkResults();
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("Sleep");
+				gc.resetGame();
 			}
-			System.out.println("Sleep");
-			gc.resetGame();
 		}
 		else if(message.equals("chairIncrease"))
 		{
@@ -223,6 +228,11 @@ public class GameClient extends AbstractClient
 			bc.updateBalance();
 			bc.resetBet();
 			gc.setBalance(balance);
+		}
+		else if(message.contains("gameReset"))
+		{
+			checkOne = true;
+			gc.chairReset();
 		}
 
 	}

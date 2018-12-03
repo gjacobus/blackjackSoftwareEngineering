@@ -57,7 +57,7 @@ public class GamePanel extends JPanel
 	  public void setBalance(double balance)
 	  {
 		  this.balance.setText("Balance: " + balance);
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public String getBetAmount()
@@ -68,7 +68,7 @@ public class GamePanel extends JPanel
 	  public void setBetAmount(double amount)
 	  {
 		  betAmt.setText("Bet: " + amount);
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  // Setter for the error text.
@@ -83,7 +83,7 @@ public class GamePanel extends JPanel
 			  errorLabel.setVisible(true);
 			  errorLabel.setText(error);
 		  }
-		  this.repaint();
+		  updateGame();
 
 	  }
 	  
@@ -194,7 +194,7 @@ public class GamePanel extends JPanel
 	  public void updateDealerScore(int score)
 	  {
 		  dealerScore.setText("DealerScore: " + score);
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public String getDealerScore()
@@ -206,8 +206,7 @@ public class GamePanel extends JPanel
 	  {
 		  JLabel newJLabel = new JLabel("", new ImageIcon(this.getClass().getResource(cardPath)), JLabel.CENTER);
 		  dealerCards.add(newJLabel);
-		  this.revalidate();
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  private void resetDealerCards()
@@ -215,7 +214,7 @@ public class GamePanel extends JPanel
 		  dealerCards.removeAll();
 		  dealerCards.add(dealerScore);
 		  dealerCards.add(Box.createRigidArea(new Dimension(60, 0)));
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public void addUserCards(int chairNum, String cardPath)
@@ -260,25 +259,19 @@ public class GamePanel extends JPanel
 				  break;
 			  }
 		  }
-//		  cardBuffer = 400 - (100 * maxCardNum);
-//		  System.out.println(box.getComponent(7).getSize());
-//		  box.getComponent(7).invalidate();
-//		  box.getComponent(7).setSize(0, cardBuffer);
-//		  box.getComponent(7).validate();
-//		  System.out.println(box.getComponent(7).getSize());
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public void removeDealerFlipCard()
 	  {
 		  dealerCards.remove(3);
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public void updateUserScore(int score)
 	  {
 		  userScore.setText("Current Score: " + score);
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public String getUserScore()
@@ -292,7 +285,7 @@ public class GamePanel extends JPanel
 		  user2Cards.removeAll();
 		  user3Cards.removeAll();
 		  user4Cards.removeAll();
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  private void resetText()
@@ -304,6 +297,7 @@ public class GamePanel extends JPanel
 		  name3.setText("user3");
 		  name4.setText("user4");
 		  setError("");
+		  updateGame();
 	  }
 	  
 	  public void resetGame()
@@ -311,11 +305,12 @@ public class GamePanel extends JPanel
 		  resetText();
 		  resetUserCards();
 		  resetDealerCards();
-		  this.repaint();
+		  updateGame();
 	  }
 	  
 	  public void updateGame()
 	  {
+		  this.revalidate();
 		  this.repaint();
 	  }
 }

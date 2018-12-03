@@ -299,15 +299,12 @@ public class GameControl implements ActionListener
 			  {
 				  System.out.println("DealerDone");
 				  System.out.println(canPlay);
-				  if(canPlay)
-				  {
 					  try {
 						game.sendToServer("DealerDone");
 						return;
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
 				  }
 			  }
 			  if(dealerScore>= 17)

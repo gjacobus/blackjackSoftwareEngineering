@@ -355,13 +355,13 @@ public class GameServer extends AbstractServer
 			this.sendToAllClients("nextCard=" + temp);
 		}
 		else if(arg0.toString().contains("Stay"))
-		{
-			
+		{			
 			currentChair += 1;
 			this.sendToAllClients("chairIncrease");
 			try {
 				if(arg0.equals("Stay" + (names.size() - 1)))
 				{
+					clients.get(0).sendToClient("canPlay");
 					int temp = nextCard();
 					this.sendToAllClients("DealerMove=" + temp);
 					return;
@@ -384,11 +384,16 @@ public class GameServer extends AbstractServer
 		else if(arg0.toString().equals("DealerDone"))
 		{
 			System.out.println("Checkum");
-			this.sendToAllClients("CheckResults");
+			try {
+				arg1.sendToClient("CheckResults");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if(arg0.toString().equals("resetGame"))
 		{
-			this.sendToAllClients("dealerDone");
+			this.sendToAllClients("gameReset");
 			shuffleDeck();
 			currentChair = 0;
 			gameStarted = false;

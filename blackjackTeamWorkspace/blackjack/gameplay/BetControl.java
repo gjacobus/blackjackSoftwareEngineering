@@ -110,7 +110,7 @@ public class BetControl implements ActionListener{
 	public void displayError(String message)
 	{
 		BetPanel betPanel = (BetPanel)container.getComponent(4); 
-		betPanel.displayError("Error:" + message);
+		betPanel.displayError(message);
 	}
 	
 	public void displayWaitingMessage() {
