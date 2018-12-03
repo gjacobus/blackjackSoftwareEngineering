@@ -25,6 +25,9 @@ public class GameClient extends AbstractClient
 	{
 		super("localhost", 12345);
 	}
+	public GameClient(String ip) {
+		super(ip, 12345);
+	}
 	
 	public String getUsername() {
 		return username;
