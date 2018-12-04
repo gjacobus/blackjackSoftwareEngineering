@@ -23,7 +23,7 @@ public class StartGamePanel extends JPanel
 	        
 	    JPanel namePanel = new JPanel(new GridLayout(1, 1, 0, 0));
 	    namePanel.setBackground(background);
-	    JLabel blackJack = new JLabel("BlackJack", JLabel.CENTER);
+	    JLabel blackJack = new JLabel("BareBones BlackJack", JLabel.CENTER);
 	    blackJack.setFont(new Font(blackJack.getName(), Font.BOLD, 40));
 	    blackJack.setForeground(Color.YELLOW);
 	    namePanel.add(blackJack);

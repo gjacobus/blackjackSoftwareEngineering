@@ -63,25 +63,28 @@ public class GameControl implements ActionListener
 	    // Get the name of the button clicked.
 	    String command = ae.getActionCommand();
 
-	    if(canPlay)
+	    if(!dealerInitial)
 	    {
-		    if (command == "Hit")
+		    if(canPlay)
 		    {
-		    	try {
-					game.sendToServer("nextCard");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		    }
-		    else if (command == "Stay")
-		    {
-		    	try {
-					game.sendToServer("Stay" + currentChair);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			    if (command == "Hit")
+			    {
+			    	try {
+						game.sendToServer("nextCard");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			    else if (command == "Stay")
+			    {
+			    	try {
+						game.sendToServer("Stay" + currentChair);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 		    }
 	    }
 	  }
