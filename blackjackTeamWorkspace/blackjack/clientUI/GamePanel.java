@@ -70,6 +70,12 @@ public class GamePanel extends JPanel {
 			errorLabel.setVisible(true);
 			errorLabel.setText(error);
 		}
+		
+		if(error.equals("Your Turn"))
+		{
+			errorLabel.setVisible(true);
+			errorLabel.setText(error);
+		}
 		updateGame();
 
 	}

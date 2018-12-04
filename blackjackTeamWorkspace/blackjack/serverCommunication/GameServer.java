@@ -391,7 +391,7 @@ public class GameServer extends AbstractServer
 		{
 			System.out.println("Checkum");
 			try {
-				this.wait(5000);
+				this.wait(2000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -89,6 +89,17 @@ public class GameControl implements ActionListener
 	  public void canPlay(boolean play)
 	  {
 		  this.canPlay = play;
+		  
+		  if(play)
+		  {
+			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+			  gamePanel.setError("Your Turn");
+		  }
+		  else
+		  {
+			  GamePanel gamePanel = (GamePanel) container.getComponent(5);
+			  gamePanel.setError("");
+		  }
 	  }
 	  
 	  public void startGame(String message)

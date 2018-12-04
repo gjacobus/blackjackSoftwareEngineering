@@ -99,7 +99,6 @@ public class BetControl implements ActionListener{
 	{
 		if(betUpdate)
 		{
-			betUpdate = false;
 			return;
 		}
 		BetPanel betPanel = (BetPanel)container.getComponent(4); 
@@ -125,6 +124,11 @@ public class BetControl implements ActionListener{
 	public void setTimerMessage() {
 		BetPanel betPanel = (BetPanel)container.getComponent(4); 
 		betPanel.displayError("Hurry up and bet");
+	}
+	
+	public void betUpdate(boolean update)
+	{
+		this.betUpdate = update;
 	}
 	
 	

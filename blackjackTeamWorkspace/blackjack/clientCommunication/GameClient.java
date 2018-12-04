@@ -237,13 +237,14 @@ public class GameClient extends AbstractClient
 			String temp[] = message.split("=");
 			balance = Double.parseDouble(temp[1]);
 			bc.updateBalance();
-			bc.resetBet();
 			gc.setBalance(balance);
 		}
 		else if(message.contains("gameReset"))
 		{
+			bc.betUpdate(false);
 			checkOne = true;
 			gc.chairReset();
+			bc.resetBet();
 			watchHand = false;
 			hasPlacedBet = false;
 		}
