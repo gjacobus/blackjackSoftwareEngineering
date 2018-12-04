@@ -1,1 +1,1 @@
-java -cp .;ocsf.jar clientUI.ClientGUI "Client 1"
+java -cp .;ocsf.jar clientUI.ClientGUI "Client 1" "161.31.72.103"
