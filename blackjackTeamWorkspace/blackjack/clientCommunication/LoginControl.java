@@ -13,7 +13,6 @@ public class LoginControl implements ActionListener
 	// Private data fields for the container and chat client.
 	private JPanel container;
 	private GameClient client;
-	private JFrame frame;
 
 	// Constructor for the login controller.
 	public LoginControl(JPanel container, GameClient client)
@@ -32,10 +31,6 @@ public class LoginControl implements ActionListener
 
 	}
 	
-	public void setFrameSize(int width, int height) {
-		this.frame = (JFrame) SwingUtilities.windowForComponent(container);
-		frame.setSize(width, height);
-	}
 
 	// Handle button clicks.
 	public void actionPerformed(ActionEvent ae)

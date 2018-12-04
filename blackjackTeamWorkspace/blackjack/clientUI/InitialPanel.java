@@ -10,7 +10,6 @@ import javax.swing.*;
 import clientCommunication.InitialControl;
 
 public class InitialPanel extends JPanel {
-	JLabel timerLabel;
 
 	// Constructor for the initial panel.
 	public InitialPanel(InitialControl ic) {

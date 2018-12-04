@@ -17,10 +17,7 @@ public class StartGameControl implements ActionListener {
 		this.container = container;
 		this.client = client;
 	}
-	
-	public void gameFound() {
-		
-	}
+
 	
 	public void updateUsername() {
 		StartGamePanel sgp = (StartGamePanel) container.getComponent(3);

@@ -20,13 +20,6 @@ public class BetControl implements ActionListener{
 		this.container = container;
 	}
 	
-	public void setBet(double bet) {
-		
-	}
-	
-	public void setTime(String time) {
-		
-	}
 	
 	public void updateBalance() 
 	{

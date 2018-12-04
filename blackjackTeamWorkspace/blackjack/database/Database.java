@@ -89,14 +89,6 @@ public class Database
 		stmt.execute(dml);
 	}
 
-	public ArrayList<String> getIdList()
-	{
-		ArrayList<String> ids = new ArrayList<String>();
-
-		// more code here
-
-		return ids;
-	}
 
 	public String getDataByUsername(String username)
 	{
