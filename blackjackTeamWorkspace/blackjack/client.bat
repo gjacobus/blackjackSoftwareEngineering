@@ -1,0 +1,1 @@
+java -cp .;ocsf.jar clientUI.ClientGUI "Client 1" "localhost"
