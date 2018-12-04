@@ -59,7 +59,7 @@ public class ClientGUI extends JFrame {
 
 		view2.addComponentListener(new ResizeFrame(container, 550, 350));
 		view3.addComponentListener(new ResizeFrame(container, 550, 350));
-		view4.addComponentListener(new ResizeFrame(container, 475, 600));
+		view4.addComponentListener(new ResizeFrame(container, 540, 600));
 		view5.addComponentListener(new ResizeFrame(container, 600, 400));
 		view6.addComponentListener(new ResizeFrame(container, 800, 750));
 		
